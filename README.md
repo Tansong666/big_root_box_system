@@ -80,7 +80,7 @@ e:\big_root_system
 - 图像分割参数：可通过界面调整`slide_predict`（滑动窗口开关）、`slide_size`（窗口大小）、`stride`（步长）等参数（参考`<mcfile name="img_seg_thread.py" path="e:\big_root_system\threads\img_seg_thread.py"></mcfile>`）。  
 
 ## 模型下载地址
-- 根系分割模型：[GitHub Releases 下载](https://github.com/Tansong666/big_root_box_system/releases/download/v1.0/bigbox_segformer.zip)
+- 根系分割模型：[GitHub Releases 下载](https://github.com/Tansong666/big_root_box_system/releases/download/v1.0.0/bigbox_segformer.zip)
 - 测试数据：[GitHub Releases 下载](https://github.com/Tansong666/big_root_box_system/releases/download/v1.0/root_data.zip)  
 - 去噪模型（待发布）：[待上传，后续更新链接]
 
