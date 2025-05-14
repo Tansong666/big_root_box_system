@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1624</width>
+    <height>1099</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QSplitter" name="splitter_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QTabWidget" name="tabWidget_analysis">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>宏观根系表型分析</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QGridLayout" name="gridLayout_LayerSize_2">
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spinBox_LayerWidth_2">
+            <property name="maximum">
+             <number>999999999</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_LayerWidth_2">
+            <property name="text">
+             <string>Layer_width:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="spinBox_LayerHeight_2">
+            <property name="maximum">
+             <number>999999999</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_LayerHeight_2">
+            <property name="text">
+             <string>Layer_height:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerHeight_2">
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerWidth_2">
+            <property name="decimals">
+             <number>4</number>
+            </property>
+            <property name="maximum">
+             <double>1.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_SacveDir_calculate_2">
+          <property name="spacing">
+           <number>9</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_SaveDir_calculate_2">
+            <property name="text">
+             <string>save dir:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_SaveDir_calculate_2"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_SaveDir_cacuate_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string> . . . </string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTreeWidget" name="treeWidget_Traits">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <column>
+           <property name="text">
+            <string>trait</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>value</string>
+           </property>
+          </column>
+          <item>
+           <property name="text">
+            <string>area</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>convex_area</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>length</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>diameter</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>depth</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>width</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>wdRatio</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>sturdiness</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>initial_x</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>initial_y</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>centroid_x</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>centroid_y</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_apex_left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_apex_right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_apex_all</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_entire_left</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_entire_right</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>angle_entire_all</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>layer_mass</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <item>
+            <property name="text">
+             <string>Area</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Length</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Convex_hull</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>A/C</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>A/L</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>L/C</string>
+            </property>
+           </item>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_Analysis_2">
+          <property name="spacing">
+           <number>9</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_Analysis_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_Calculate_2">
+            <property name="text">
+             <string>calculate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_CalculateAll_2">
+            <property name="text">
+             <string>calculate all</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_StopCalculate_2">
+            <property name="text">
+             <string>stop</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>细粒度根系表型分析</string>
+       </attribute>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QFrame" name="frame_imageview">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>10</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>6</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_imageview">
+          <item>
+           <widget class="myGraphicsView" name="graphicsView_Left_analysis"/>
+          </item>
+          <item>
+           <widget class="myGraphicsView" name="graphicsView_Right_analysis"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_ImageInfo" stretch="0,1">
+          <item>
+           <widget class="QLabel" name="label_ImageSize">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>image size: 0x0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_CurrentImage">
+            <property name="text">
+             <string>currentlabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_btns">
+          <property name="spacing">
+           <number>9</number>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_btnsLeft">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_Concat">
+            <property name="styleSheet">
+             <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+            </property>
+            <property name="text">
+             <string>拼接</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_Seg">
+            <property name="styleSheet">
+             <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+            </property>
+            <property name="text">
+             <string>分割</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_Refine">
+            <property name="styleSheet">
+             <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+            </property>
+            <property name="text">
+             <string>除杂</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_FirstImage">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string> ⏮ </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_PreviousImage">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string> ⏪ </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_NextImage">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string> ⏩ </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_LastImage">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string> ⏭ </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_FitAllImageView">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="text">
+             <string> 🔁 </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_Stop">
+            <property name="styleSheet">
+             <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+            </property>
+            <property name="text">
+             <string>停止推理</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btn_ClearLog">
+            <property name="styleSheet">
+             <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+            </property>
+            <property name="text">
+             <string>清除日志</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_btnsRight">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="frame_MessagePrinter">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QTextBrowser" name="textBrowser_MessagePrinter">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="markdown">
+           <string/>
+          </property>
+          <property name="html">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:7.2pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>myGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">mygraphicsview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

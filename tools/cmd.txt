@@ -1,0 +1,5 @@
+# 打开“/dev/ttyUSB0”串口，添加权限
+sudo usermod -aG dialout username[ts]
+reboot # 重启
+
+

@@ -1,0 +1,12 @@
+.idea
+.vscode
+__pycache__
+
+
+test
+
+car/
+data/
+output/
+
+models/segment

@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="logo">
+    <file>res/logo.png</file>
+  </qresource>
+  <qresource prefix="icon">
+    <file alias="connect">res/connected.png</file>
+    <file alias="disc">res/disconnect.png</file>
+    <file alias="refresh">res/refresh.png</file>
+  </qresource>
+</RCC>
