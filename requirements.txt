@@ -1,0 +1,15 @@
+PyQt5==5.15.11
+opencv-python==4.5.5.62
+numpy==1.23.5
+qt-material==2.17
+tqdm==4.67.1
+
+# # 可选
+# pyserial==3.5
+# fastdeploy-gpu-python==1.0.7  # fastdeploy官网下载
+# pypylon==4.1.0
+# python-dotenv==1.1.0
+# PyYAML==6.0.2
+# requests==2.32.3
+# typing_extensions==4.13.2
+# uvicorn==0.16.0
