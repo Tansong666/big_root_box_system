@@ -12,9 +12,9 @@ import sys
 from qt_material import apply_stylesheet
 
 from ui.Ui_main_window import Ui_MainWindow
-from tasks.img_capture_widget import ImgCaptureWidget
-from tasks.img_seg_widget import ImgSegWidget
-from tasks.serial_assist_widget import SerialAssistWidget
+from sub_widgets.img_capture_widget import ImgCaptureWidget
+from sub_widgets.img_seg_widget import ImgSegWidget
+from sub_widgets.serial_assist_widget import SerialAssistWidget
 
 class MainWindow(QMainWindow):
 

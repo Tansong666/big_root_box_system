@@ -8,7 +8,7 @@ import sys
 import threading
 from ui.Ui_serial_assist_widget import Ui_SerialAssistWidget
 from drivers.driver_serial import *
-from tasks.serial_setting_dialog import SerialSettingDialog
+from sub_widgets.serial_setting_dialog import SerialSettingDialog
 from tools import utils
 
 
