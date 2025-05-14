@@ -30,7 +30,7 @@ e:\big_root_system
 ├── tasks\                   # 界面组件
 │   ├── img_capture_widget.py# 图像捕获界面
 │   ├── img_seg_widget.py    # 图像分割界面
-│   └── serial_assist_widget.py # 串口助手界面
+│   └── serial_assist_widget.py# 串口助手界面
 │   ├── img_denoise_widget.py  # 根系去噪界面（todo 待做）
 │   └── img_analysis_widget.py # 根系修复界面（todo 待做）
 ├── threads\                 # 后台线程
@@ -40,8 +40,10 @@ e:\big_root_system
 ├── tools\                   # 通用工具
 │   └── utils.py             # 字节解码等工具函数
 └── ui\                      # 界面设计文件
-    ├── *.ui                 # Qt Designer界面文件
-    └── resource.qrc         # 资源文件
+│   ├── *.ui                 # Qt Designer界面文件
+│   └── resource.qrc         # 资源文件
+├── requirements.txt         # 环境依赖
+
 ```
 
 ## 依赖安装
