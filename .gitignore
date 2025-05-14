@@ -2,11 +2,11 @@
 .vscode
 __pycache__
 
-
 test
 
 car/
-data/
-output/
+data/*
+output/*
 
-models/segment
+models/segment/*
+tools/cmd.txt
