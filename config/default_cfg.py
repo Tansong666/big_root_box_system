@@ -26,7 +26,27 @@ seg_imagepath = r'output\concated'
 seg_savepath = r'output\segmented'
 
 
-# post_savepath = r'output\post'
+#### 后处理
+post_is_Serving=False
+# 图像去噪
+is_denoise = True
+post_inputpath = r'output\test\0510'
+is_rsa = False
+dilate_iters = 10
+threshold_area = 1000
+is_rba = False
+rba_left = 0
+rba_right = 0
+rba_top = 0
+rba_bottom = 0
+denoise_savepath = r'output\denoised'
+# 图像修复
+is_inpaint = False
+inpaint_iters = 5
+inpaint_runtime_list = ['onnxruntime','tensorrt','paddle_inference','paddle_serving']
+inpaint_model_list = ['EUGAN']
+inpaint_weightpath = r'models\inpaint\EUGAN.onnx'
+inpaint_savepath = r'output\inpainted'
 
 # calculate_savepath = r'output\calculate'
 

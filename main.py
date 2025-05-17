@@ -15,6 +15,7 @@ from ui.Ui_main_window import Ui_MainWindow
 from sub_widgets.img_capture_widget import ImgCaptureWidget
 from sub_widgets.img_seg_widget import ImgSegWidget
 from sub_widgets.serial_assist_widget import SerialAssistWidget
+from sub_widgets.img_postprocess_widget import ImgPostprocessWidget
 
 class MainWindow(QMainWindow):
 
@@ -37,6 +38,8 @@ class MainWindow(QMainWindow):
         """)
         self.ui.tabWidget.addTab(ImgCaptureWidget(self), "根系图像采集")
         self.ui.tabWidget.addTab(ImgSegWidget(self), "根系图像分割")
+        self.ui.tabWidget.addTab(ImgPostprocessWidget(self), "根系图像后处理")
+
         self.ui.tabWidget.addTab(SerialAssistWidget(self), "串口助手")
 
         self.ui.tabWidget.setCurrentIndex(0)
@@ -53,7 +56,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
 
     window = MainWindow()
-    apply_stylesheet(app, theme='light_blue.xml')
+    # apply_stylesheet(app, theme='light_blue.xml')
     # apply_stylesheet(app, theme='dark_lightgreen.xml')
     
     window.show()

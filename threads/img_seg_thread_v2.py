@@ -218,7 +218,7 @@ class ImgSegThread(QThread):
         # cv2.imwrite(finnal_seg_save_path, mask)
         QThreadPool.globalInstance().start(ImageSaveTask(finnal_seg_save_path, mask))
 
-        self.signal_process_complete.emit(f"图像分割成功: {finnal_seg_save_path}")
+        self.signal_process_complete.emit(f"图像分割成功: {finnal_seg_save_path}, mask.shape: {mask.shape}")
 
         return mask
         
