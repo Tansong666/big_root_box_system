@@ -30,7 +30,7 @@ e:\big_root_system
 ├── tasks\                   # 界面组件
 │   ├── img_capture_widget.py# 图像捕获界面
 │   ├── img_seg_widget.py    # 图像分割界面
-│   └── serial_assist_widget.py # 串口助手界面
+│   └── serial_assist_widget.py# 串口助手界面
 │   ├── img_denoise_widget.py  # 根系去噪界面（todo 待做）
 │   └── img_analysis_widget.py # 根系修复界面（todo 待做）
 ├── threads\                 # 后台线程
@@ -40,8 +40,10 @@ e:\big_root_system
 ├── tools\                   # 通用工具
 │   └── utils.py             # 字节解码等工具函数
 └── ui\                      # 界面设计文件
-    ├── *.ui                 # Qt Designer界面文件
-    └── resource.qrc         # 资源文件
+│   ├── *.ui                 # Qt Designer界面文件
+│   └── resource.qrc         # 资源文件
+├── requirements.txt         # 环境依赖
+
 ```
 
 ## 依赖安装
@@ -78,8 +80,8 @@ e:\big_root_system
 - 图像分割参数：可通过界面调整`slide_predict`（滑动窗口开关）、`slide_size`（窗口大小）、`stride`（步长）等参数（参考`<mcfile name="img_seg_thread.py" path="e:\big_root_system\threads\img_seg_thread.py"></mcfile>`）。  
 
 ## 模型下载地址
-- 根系分割模型：[GitHub Releases 下载](https://github.com/Tansong666/big_root_system/releases/download/v1.0/bigbox_segformer.zip)
-- 测试数据：[GitHub Releases 下载](https://github.com/Tansong666/big_root_system/releases/download/v1.0/root_data.zip)  
+- 根系分割模型：[GitHub Releases 下载](https://github.com/Tansong666/big_root_box_system/releases/download/v1.0.0/bigbox_segformer.zip)
+- 测试数据：[GitHub Releases 下载](https://github.com/Tansong666/big_root_box_system/releases/download/v1.0/root_data_demo.zip)  
 - 去噪模型（待发布）：[待上传，后续更新链接]
 
 
