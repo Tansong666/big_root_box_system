@@ -48,7 +48,10 @@ inpaint_model_list = ['EUGAN']
 inpaint_weightpath = r'models\inpaint\EUGAN.onnx'
 inpaint_savepath = r'output\inpainted'
 
-# calculate_savepath = r'output\calculate'
+# 性状计算
+# caculate_inputpath = inpaint_savepath
+calculate_inputpath = r'output\inpainted'
+calculate_savepath = r'output\calculated'
 
 
 

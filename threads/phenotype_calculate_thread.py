@@ -11,70 +11,100 @@ from PyQt5.QtCore import QThread, pyqtSignal
 from skimage import morphology
 
 
-class CalculateThread(QThread):
+class PhenotypeCalculateThread(QThread):
     # 定义信号
-    signal = pyqtSignal([str], [dict], [str, str, str, np.ndarray])
+    signal = pyqtSignal([str], [dict])
+    show_img_signal = pyqtSignal(np.ndarray)
 
     def __init__(self):
-        super(CalculateThread, self).__init__()
+        super(PhenotypeCalculateThread, self).__init__()
         self.args = None
         self.num = 0
-        self.task = 'Calculate'
-        self.isOn = False
+
+        self.img = None
+        self.img_file = None
 
     def run(self):
-        self.isOn = True
         print('start calculate thread')
         self.calculate_traits(**self.args)
         print('end calculate thread')
-        self.isOn = False
 
-    def stop(self):
-        self.isOn = False
+    # def stop(self):
+    #     self.isOn = False
 
-    def calculate_traits(self, file_dict, save_path, dataset_rootpath, Layer_height, Layer_width):
-        calculater = Calculater(dataset_rootpath)
+    def calculate_traits(self, img_path, save_path, Layer_height, Layer_width):
+
+        calculater = Calculater(img_path)
         print('start calculate traits')
-        self.signal[str].emit(f'[CALC]\tNumber of predict images = {self.num}')
-        start_time = time.time()
-        cost_time = time.time()
+        # self.signal[str].emit(f'[CALC]\tNumber of predict images = {self.num}')
+        # start_time = time.time()
+        # cost_time = time.time()
         if os.path.exists(os.path.join(save_path, 'traits.csv')):
             os.remove(os.path.join(save_path, 'traits.csv'))
-        processid = 0
-        for image_path, images_path in file_dict.items():
-            if not self.isOn:
-                break
-            img_path = images_path['processed_path'] if images_path['processed_path'] else images_path['binary_path']
-            img_path = img_path if img_path else image_path
-            if not os.path.exists(img_path):
-                continue
-            processid += 1
-            print(f'processid:{processid}/{self.num}')
-            show_img = calculater.loadimage(img_path)
+        # processid = 0
+        if self.img is None:
+            # 批量处理图片路径中的所有图片
+            for root, dirs, files in os.walk(img_path):
+                # 构造与输入目录结构一致的输出子目录
+                relative_path = os.path.relpath(root, img_path)
+                calculate_subdir = os.path.join(save_path, relative_path)
+                # inpaint_subdir = os.path.join(inpaint_save_path, relative_path)
+                
+                for file in files:
+                    # 仅处理图片文件（可根据需求扩展格式）
+                    if file.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp')):
+                        img_file = os.path.join(root, file)
+                        # self.process_signal.emit(f'正在处理该图片: {img_file}')
+                        # 读取图片（假设是灰度图，根据实际情况调整）
+                        # img = cv2.imread(img_file, 0)
+                        # img = cv2.imread(img_file, -1)  # -1表示读取原始图像，不进行转化，包括alpha通道
+                        # # self.show_seg_img_signal.emit(img)
+                        # if img is None:
+                        #     # self.process_signal.emit(f'Warning: 无法读取图片 {img_file}')
+                        #     print(f'Warning: 无法读取图片 {img_file}')
+                        #     continue
+                        if not os.path.exists(img_file):
+                            continue
+                        # processid += 1
+                        # print(f'processid:{processid}/{self.num}')
+                        show_img = calculater.loadimage(self.img, img_file)
+                        self.show_img_signal.emit(show_img)
+                        traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
+                        traits['image_path'] = img_file
+                        self.signal[dict].emit(traits)
+                        new_path = calculater.save_traits(save_path)
+                        # self.signal[str, str, str, np.ndarray].emit(img_file, new_path, 'visualization', show_img)
+                        # cost = time.time() - cost_time
+                        # total_cost = time.time() - start_time
+                        # eta = (total_cost) / (processid) * (self.num - processid)
+                        # self.signal[str].emit(
+                        #     f'[CALC]\t{processid}/{self.num} {img_file:}:{cost:.2f}s\ttotal_cost:{total_cost:.2f}s\teta:{eta:.2f}s')
+                        # cost_time = time.time()
+        else:
+            # 读取图片（假设是灰度图，根据实际情况调整）
+            # img = cv2.imread(img_path, 0)
+            show_img = calculater.loadimage(self.img, self.img_file)
+            self.show_img_signal.emit(show_img)
             traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
-            traits['image_path'] = image_path
+            traits['image_path'] = self.img_file
             self.signal[dict].emit(traits)
             new_path = calculater.save_traits(save_path)
-            self.signal[str, str, str, np.ndarray].emit(image_path, new_path, 'visualization', show_img)
-            cost = time.time() - cost_time
-            total_cost = time.time() - start_time
-            eta = (total_cost) / (processid) * (self.num - processid)
-            self.signal[str].emit(
-                f'[CALC]\t{processid}/{self.num} {image_path:}:{cost:.2f}s\ttotal_cost:{total_cost:.2f}s\teta:{eta:.2f}s')
-            cost_time = time.time()
-
+            # self.signal[str, str, str, np.ndarray].emit(self.img_file, new_path, 'visualization', show_img)
 
 class Calculater(object):
     def __init__(self, dataset_rootpath=None):
         self.dataset_rootpath = dataset_rootpath
         pass
 
-    def loadimage(self, image_path):
+    def loadimage(self,img,image_path):
         self.Empty = False
         self.image_path = image_path
-        # 向右为x轴正方向,向下为y轴正方向
-        self.img = np.array(Image.open(image_path).convert('L'))
-        self.img = cv2.threshold(self.img, 10, 255, cv2.THRESH_BINARY)[1]
+        if img is not None:
+            self.img = img 
+        else:
+             # 向右为x轴正方向,向下为y轴正方向  
+            self.img = np.array(Image.open(image_path).convert('L'))
+            self.img = cv2.threshold(self.img, 10, 255, cv2.THRESH_BINARY)[1]
         self.show_img = cv2.cvtColor(self.img, cv2.COLOR_GRAY2BGR)
         # 二值图所有点坐标（x, y）
         self.coordinates = np.argwhere(self.img == 255)[:, ::-1]
@@ -264,9 +294,10 @@ class Calculater(object):
         self.traits['layer_mass_A_L'] = mass['Area_Length']
         return self.traits
 
-    def save_traits(self, save_path):
-        image_save_path = self.image_path.replace(self.dataset_rootpath,
-                                                  os.path.join(save_path, 'traits_visualization'))
+    def save_traits(self, save_path, file):
+        # image_save_path = self.image_path.replace(self.dataset_rootpath,
+        #                                           os.path.join(save_path, 'traits_visualization'))
+        image_save_path = os.path.join(save_path, 'traits_visualization', file)
         if not os.path.exists(os.path.dirname(image_save_path)):
             os.makedirs(os.path.dirname(image_save_path))
             print('create dir: ', os.path.dirname(image_save_path))

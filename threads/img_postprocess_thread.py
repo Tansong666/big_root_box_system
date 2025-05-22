@@ -5,6 +5,8 @@ from PyQt5.QtCore import QThread, pyqtSignal
 import onnxruntime
 import time
 
+from signals.global_signals import signals
+from threads.phenotype_calculate_thread import Calculater
 
 class PostProcessThread(QThread):
     # 定义信号
@@ -12,11 +14,14 @@ class PostProcessThread(QThread):
     process_signal = pyqtSignal(str)
     show_seg_img_signal = pyqtSignal(np.ndarray)
     show_post_img_signal = pyqtSignal(np.ndarray)
+    trait_signal = pyqtSignal(dict)
+    # img_info_signal = pyqtSignal([str],[np.ndarray])
 
     def __init__(self):
         super(PostProcessThread, self).__init__()
         self.args = None  # 控件参数
         self.inpaint_args = None  # 控件参数
+        self.calculate_args = None  # 控件参数
         # self.isOn = False
         self.img = None  # 信号发送参数
         self.code = None  # 信号发送参数
@@ -91,9 +96,10 @@ class PostProcessThread(QThread):
         return output
 
 
-    def img_postprocess(self,img, code, is_denoise=False, img_path=None, rsa=False,dilation=None, areathreshold=None, 
-                    rba=False, left=None, right=None, top=None, bottom=None,denoise_save_path=None,
-                    is_inpaint=False, iters=None,weight_path=None,inpaint_save_path=None):
+    def img_postprocess(self,img, code, 
+                    is_denoise=False, img_path=None, rsa=False,dilation=None, areathreshold=None, rba=False, left=None, right=None, top=None, bottom=None,denoise_save_path=None,
+                    is_inpaint=False, iters=None,weight_path=None,inpaint_save_path=None, 
+                    calculate_save_path=None,Layer_height=None,Layer_width=None):
 
         self.process_signal.emit(f'开始进行后处理...')
         # print(f'Processing images...')
@@ -128,7 +134,7 @@ class PostProcessThread(QThread):
                             self.process_signal.emit(f'根系除杂: <{image_save_path}>saved')
                             self.show_post_img_signal.emit(img)
                             # 睡眠1秒
-                            time.sleep(1)
+                            # time.sleep(1)
                         ## 执行图像修复
                         if is_inpaint:
                             img = self.inpaint(img, iters, weight_path)
@@ -142,7 +148,16 @@ class PostProcessThread(QThread):
                             self.process_signal.emit(f'根系修复: <{image_save_path}>saved')
                             self.show_post_img_signal.emit(img)
                             # 睡眠1秒
-                            time.sleep(1)
+                            # time.sleep(1)
+
+                        calculater = Calculater()
+                        show_img = calculater.loadimage(img, image_save_path)
+                        self.show_post_img_signal.emit(show_img)
+                        traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
+                        traits['image_path'] = image_save_path
+                        self.trait_signal.emit(traits)
+                        calculater.save_traits(calculate_save_path, file)       
+                        # signals.img_info_signal.emit(image_save_path, img)
             self.process_signal.emit(f'根系后处理全部完成.')
         else:
             self.show_seg_img_signal.emit(img)
@@ -164,6 +179,17 @@ class PostProcessThread(QThread):
                 cv2.imwrite(image_save_path, img)
                 self.process_signal.emit(f'{image_save_path} saved.')
                 self.show_post_img_signal.emit(img)
+
+            calculater = Calculater()
+            show_img = calculater.loadimage(img, image_save_path)
+            self.show_post_img_signal.emit(show_img)
+            traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
+            traits['image_path'] = image_save_path
+            self.trait_signal.emit(traits)
+            file = code + '.png'
+            calculater.save_traits(calculate_save_path, file)
+
+            # signals.img_info_signal.emit(image_save_path, img)
         
         # return img
 
@@ -172,7 +198,7 @@ class PostProcessThread(QThread):
         # self.isOn = True
         # denoise_img = self.img_denoise(self.img, self.code, **self.args)
         # self.img_inpaint(denoise_img, **self.inpaint_args)
-        self.img_postprocess(self.img, self.code, **self.args, **self.inpaint_args)
+        self.img_postprocess(self.img, self.code, **self.args, **self.inpaint_args, **self.calculate_args)
 
         # self.isOn = False
 
