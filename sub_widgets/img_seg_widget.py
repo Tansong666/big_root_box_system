@@ -62,7 +62,7 @@ class ImgSegWidget(QWidget):
         # sys.stdout = self.message_printer
         # sys.stderr = self.message_printer
  
-    def update_graphicsView_Left(self, concat_matrix):
+    def update_graphicsView_Left(self, img_path, concat_matrix):
         """更新 graphicsView_Left 显示拼接后的图像"""
         concat_matrix = cv2.rotate(concat_matrix, cv2.ROTATE_90_COUNTERCLOCKWISE)  # 逆时针旋转90度
         height, width, channel = concat_matrix.shape
@@ -70,12 +70,17 @@ class ImgSegWidget(QWidget):
         q_img = QImage(concat_matrix.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         self.ui.graphicsView_Left.setPixmap(QPixmap.fromImage(q_img))
 
-    def update_graphicsView_Right(self, seg_mask):
+        self.ui.label_imgPath1.setText(img_path)
+        self.ui.label_ImageSize.setText(f"image size:{width}x{height}")
+
+    def update_graphicsView_Right(self, img_path, seg_mask):
         """更新 graphicsView_Right 显示分割后的图像"""
         seg_mask = cv2.rotate(seg_mask, cv2.ROTATE_90_COUNTERCLOCKWISE)  # 逆时针旋转90度
         height, width = seg_mask.shape
         q_img = QImage(seg_mask.data, width, height, width, QImage.Format_Grayscale8)
-        self.ui.graphicsView_Right.setPixmap(QPixmap.fromImage(q_img))    
+        self.ui.graphicsView_Right.setPixmap(QPixmap.fromImage(q_img))
+
+        self.ui.label_imgPath2.setText(img_path)
     ## 重定向方法
     # 1.根据需要重定向输出信息到日志窗口
     def update_textBrowser(self, text):
@@ -281,7 +286,7 @@ class ImgSegWidget(QWidget):
         else:
             self.update_textBrowser('线程未运行，无需停止')
 
-    def auto_seg_thread(self,img1,img2,code):
+    def auto_seg_thread(self,image_path1,image_path2,img1,img2):
         if self.img_seg_thread.model is None:  # 判断模型是否加载完成
             self.update_textBrowser('请先加载模型')
             return
@@ -318,7 +323,8 @@ class ImgSegWidget(QWidget):
         # 打印所有参数
         self.img_seg_thread.img1 = img1
         self.img_seg_thread.img2 = img2
-        self.img_seg_thread.code = code
+        self.img_seg_thread.img1_path = image_path1
+        self.img_seg_thread.img2_path = image_path2
         self.img_seg_thread.args = args
         # self.update_textBrowser('参数如下:\n' + str(self.img_seg_thread.args))
         structured_args = "参数如下:\n"
@@ -327,7 +333,7 @@ class ImgSegWidget(QWidget):
         self.update_textBrowser(structured_args)
 
         # self.img_seg_thread.signal_process_complete.connect(self.append_text_to_browser)
-        self.img_seg_thread.start() 
+        self.img_seg_thread.start()
 
     def init_data(self):
         from config import default_cfg as cfg
@@ -381,7 +387,7 @@ class ImgSegWidget(QWidget):
         self.ui.btn_Seg.clicked.connect(self.seg_thread)
         self.ui.btn_Stop.clicked.connect(self.stop_thread)
         # 根据定义的信号连接槽函数
-        signals.signal_auto_seg.connect(self.auto_seg_thread)
+        signals.img_seg_signal.connect(self.auto_seg_thread)
 
 
 

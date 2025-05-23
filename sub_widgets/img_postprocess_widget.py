@@ -325,7 +325,7 @@ class ImgPostprocessWidget(QWidget):
         # self.calculate_thread.num = num
         self.calculate_thread.start()
 
-    def start_all_process_thread(self):
+    def start_all_process_thread(self, img_file_path, img):
         sender = self.sender()  # 返回发送当前信号的对象（控件）
         # 从控件获取参数
         denoise_args = {}
@@ -378,7 +378,10 @@ class ImgPostprocessWidget(QWidget):
         # if sender == self.ui.btn_start_process:
         #     signals.img_info_signal.connect(self.start_calculate_thread)
         # 更新线程参数
-        self.process_thread.args = denoise_args
+        self.process_thread.img = img
+        self.process_thread.image_path = img_file_path
+
+        self.process_thread.denoise_args = denoise_args
         self.process_thread.inpaint_args = inpaint_args
         self.process_thread.calculate_args = calculate_args
         # 启动线程
@@ -481,6 +484,8 @@ class ImgPostprocessWidget(QWidget):
         self.ui.btn_inpaint.clicked.connect(self.start_postprocess_thread)  # 图像修复
         self.ui.btn_start_analysis.clicked.connect(self.start_calculate_thread) # 性状计算
         self.ui.btn_start_process.clicked.connect(self.start_all_process_thread) # 全流程
+
+        signals.img_postprocess_signal.connect(self.start_all_process_thread) # 全流程
 
 
 if __name__ == "__main__":

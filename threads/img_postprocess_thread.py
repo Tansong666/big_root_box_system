@@ -19,12 +19,12 @@ class PostProcessThread(QThread):
 
     def __init__(self):
         super(PostProcessThread, self).__init__()
-        self.args = None  # 控件参数
+        self.denoise_args = None  # 控件参数
         self.inpaint_args = None  # 控件参数
         self.calculate_args = None  # 控件参数
         # self.isOn = False
         self.img = None  # 信号发送参数
-        self.code = None  # 信号发送参数
+        self.image_path = None  # 信号发送参数
 
     def denoise(self,img,rsa,dilation,areathreshold,rba,left,right,top,bottom):
         ## 多次中值滤波 5x5
@@ -96,7 +96,7 @@ class PostProcessThread(QThread):
         return output
 
 
-    def img_postprocess(self,img, code, 
+    def img_postprocess(self,img, image_path, 
                     is_denoise=False, img_path=None, rsa=False,dilation=None, areathreshold=None, rba=False, left=None, right=None, top=None, bottom=None,denoise_save_path=None,
                     is_inpaint=False, iters=None,weight_path=None,inpaint_save_path=None, 
                     calculate_save_path=None,Layer_height=None,Layer_width=None):
@@ -160,11 +160,12 @@ class PostProcessThread(QThread):
                         # signals.img_info_signal.emit(image_save_path, img)
             self.process_signal.emit(f'根系后处理全部完成.')
         else:
+            self.img_name = os.path.basename(image_path)
             self.show_seg_img_signal.emit(img)
             ## 执行去噪处理
             if is_denoise:
                 img = self.denoise(img,rsa,dilation,areathreshold,rba,left,right,top,bottom)
-                image_save_path = os.path.join(denoise_save_path, code + '.png')
+                image_save_path = os.path.join(denoise_save_path, self.img_name)
                 if not os.path.exists(os.path.dirname(image_save_path)):
                     os.makedirs(os.path.dirname(image_save_path))
                 cv2.imwrite(image_save_path, img)
@@ -173,7 +174,7 @@ class PostProcessThread(QThread):
             ## 执行图像修复
             if is_inpaint:
                 img = self.inpaint(img, iters, weight_path)
-                image_save_path = os.path.join(denoise_save_path, code + '.png')
+                image_save_path = os.path.join(inpaint_save_path, self.img_name)
                 if not os.path.exists(os.path.dirname(image_save_path)):
                     os.makedirs(os.path.dirname(image_save_path))
                 cv2.imwrite(image_save_path, img)
@@ -186,8 +187,7 @@ class PostProcessThread(QThread):
             traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
             traits['image_path'] = image_save_path
             self.trait_signal.emit(traits)
-            file = code + '.png'
-            calculater.save_traits(calculate_save_path, file)
+            calculater.save_traits(calculate_save_path, self.img_name)
 
             # signals.img_info_signal.emit(image_save_path, img)
         
@@ -198,7 +198,7 @@ class PostProcessThread(QThread):
         # self.isOn = True
         # denoise_img = self.img_denoise(self.img, self.code, **self.args)
         # self.img_inpaint(denoise_img, **self.inpaint_args)
-        self.img_postprocess(self.img, self.code, **self.args, **self.inpaint_args, **self.calculate_args)
+        self.img_postprocess(self.img, self.image_path, **self.denoise_args, **self.inpaint_args, **self.calculate_args)
 
         # self.isOn = False
 

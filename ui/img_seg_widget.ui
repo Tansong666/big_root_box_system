@@ -1016,7 +1016,14 @@ font-size: 12px;</string>
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_ImageInfo" stretch="0,1">
+         <layout class="QHBoxLayout" name="horizontalLayout_ImageInfo" stretch="3,1,3">
+          <item>
+           <widget class="QLabel" name="label_imgPath1">
+            <property name="text">
+             <string>图像路径：</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QLabel" name="label_ImageSize">
             <property name="sizePolicy">
@@ -1028,12 +1035,15 @@ font-size: 12px;</string>
             <property name="text">
              <string>image size: 0x0</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_CurrentImage">
+           <widget class="QLabel" name="label_imgPath2">
             <property name="text">
-             <string>currentlabel</string>
+             <string>图像路径：</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
