@@ -13,13 +13,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_13">
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QVBoxLayout" name="vl_imgShow1">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_12">
+      <layout class="QHBoxLayout" name="hl_imgInfo1" stretch="2,1,6">
        <item>
-        <widget class="QLabel" name="label_img1">
+        <widget class="QLabel" name="lbl_img1">
          <property name="styleSheet">
           <string notr="true">font-family: '微软雅黑';
 font-size: 16px;
@@ -31,21 +31,51 @@ font-weight: bold;</string>
         </widget>
        </item>
        <item>
-        <widget class="QGraphicsView" name="graphicsView_img1">
-         <property name="minimumSize">
+        <spacer name="hSpacer1">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>601</width>
-           <height>851</height>
+           <width>40</width>
+           <height>20</height>
           </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_saveInfo1">
+         <property name="text">
+          <string>图像保存路径：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_11" stretch="0,0">
+      <widget class="QGraphicsView" name="view_grabImg1">
+       <property name="minimumSize">
+        <size>
+         <width>601</width>
+         <height>851</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="vl_imgShow2">
+     <item>
+      <layout class="QHBoxLayout" name="hl_imginfo2" stretch="2,1,6">
        <item>
-        <widget class="QLabel" name="label_img2">
+        <widget class="QLabel" name="lbl_img2">
          <property name="styleSheet">
           <string notr="true">font-family: '微软雅黑';
 font-size: 16px;
@@ -57,250 +87,66 @@ font-weight: bold;</string>
         </widget>
        </item>
        <item>
-        <widget class="QGraphicsView" name="graphicsView_img2">
-         <property name="minimumSize">
+        <spacer name="hSpacer2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>601</width>
-           <height>851</height>
+           <width>40</width>
+           <height>20</height>
           </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbl_saveInfo2">
+         <property name="text">
+          <string>图像保存路径：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_9">
+      <widget class="QGraphicsView" name="view_grabImg2">
+       <property name="minimumSize">
+        <size>
+         <width>601</width>
+         <height>851</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="vl_control">
+     <item>
+      <layout class="QHBoxLayout" name="hl_serialInfo">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <layout class="QVBoxLayout" name="vl_arduino">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLabel" name="label_arduino">
-             <property name="styleSheet">
-              <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
-             </property>
-             <property name="text">
-              <string>Arduino串口设置</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cb_arduino">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
-             </property>
-             <property name="currentText">
-              <string>com7</string>
-             </property>
-             <item>
-              <property name="text">
-               <string>com7</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com3</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com4</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com5</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com6</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com8</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QLabel" name="label_scanner">
-             <property name="styleSheet">
-              <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
-             </property>
-             <property name="text">
-              <string>扫描器串口设置</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="cb_scanner">
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
-             </property>
-             <item>
-              <property name="text">
-               <string>com7</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com3</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com4</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com5</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com6</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>com8</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_serial_connect">
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>微软雅黑</family>
-             <pointsize>-1</pointsize>
-             <weight>75</weight>
-             <italic>false</italic>
-             <bold>true</bold>
-            </font>
-           </property>
+          <widget class="QLabel" name="lbl_arduino">
            <property name="styleSheet">
-            <string notr="true">background-color: rgb(0, 85, 255);
-color: rgb(255, 255, 255);
-font-family: '微软雅黑';
-font-size: 16px;
+            <string notr="true">font-family: 'Times New Roman';
+font-size: 12px;
 font-weight: bold;</string>
            </property>
            <property name="text">
-            <string>确认串口连接</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <widget class="QPushButton" name="btn_forward">
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(0, 85, 255);color: white;
-font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
-           </property>
-           <property name="text">
-            <string>前进</string>
+            <string>Arduino串口设置</string>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_back">
+          <widget class="QComboBox" name="cb_arduino">
            <property name="minimumSize">
             <size>
-             <width>150</width>
-             <height>50</height>
+             <width>100</width>
+             <height>30</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -308,13 +154,323 @@ font-weight: bold;</string>
 font-size: 16px;
 font-weight: bold;</string>
            </property>
+           <property name="currentText">
+            <string>com7</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>com7</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com4</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com5</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com6</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com8</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="vl_scanner">
+         <item>
+          <widget class="QLabel" name="lbl_scanner">
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Times New Roman';
+font-size: 12px;
+font-weight: bold;</string>
+           </property>
            <property name="text">
-            <string>后退</string>
+            <string>扫描器串口设置</string>
            </property>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_6">
+          <widget class="QComboBox" name="cb_scanner">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Times New Roman';
+font-size: 16px;
+font-weight: bold;</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>com7</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com4</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com5</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com6</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>com8</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="vl_grabSaveDir">
+         <item>
+          <widget class="QLabel" name="lbl_saveDir">
+           <property name="styleSheet">
+            <string notr="true">font-family: 'Times New Roman';
+font-size: 12px;
+font-weight: bold;</string>
+           </property>
+           <property name="text">
+            <string>图像采集保存地址</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_saveDir">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="readOnly">
+            <bool>false</bool>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="hSpacer3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_serialConnect">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <italic>false</italic>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 85, 255);
+color: rgb(255, 255, 255);
+font-family: '微软雅黑';
+font-size: 16px;
+font-weight: bold;</string>
+         </property>
+         <property name="text">
+          <string>确认串口连接</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="hl_control">
+       <item>
+        <widget class="QPushButton" name="btn_forward">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(0, 85, 255);color: white;
+font-family: 'Times New Roman';
+font-size: 16px;
+font-weight: bold;</string>
+         </property>
+         <property name="text">
+          <string>前进</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="hSpacer4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_back">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font-family: 'Times New Roman';
+font-size: 16px;
+font-weight: bold;</string>
+         </property>
+         <property name="text">
+          <string>后退</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="hSpacer5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_stop">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(170, 0, 0);
+color: rgb(255, 255, 255);
+font-family: 'Times New Roman';
+font-size: 16px;
+font-weight: bold;</string>
+         </property>
+         <property name="text">
+          <string>停止</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="vl_logInfo">
+       <item>
+        <widget class="QLabel" name="lbl_log">
+         <property name="text">
+          <string>当前处理信息</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextBrowser" name="txtBrw_log">
+         <property name="minimumSize">
+          <size>
+           <width>560</width>
+           <height>660</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hl_codeInfo">
+         <item>
+          <widget class="QLabel" name="lbl_missCode">
+           <property name="text">
+            <string>（重新计算漏拍）开始二维码：</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cb_missCode"/>
+         </item>
+         <item>
+          <spacer name="hSpacer6">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -327,47 +483,49 @@ font-weight: bold;</string>
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_stop">
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 0, 0);
-color: rgb(255, 255, 255);
-font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
-           </property>
+          <widget class="QLabel" name="lbl_codeInfo">
            <property name="text">
-            <string>停止</string>
+            <string>当前二维码位置</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spin_nowCode"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="lbl_progress">
+           <property name="text">
+            <string>二维码总数</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spin_sumCode">
+           <property name="maximum">
+            <number>999</number>
            </property>
           </widget>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_10">
-         <item>
-          <widget class="QLabel" name="label_log">
-           <property name="text">
-            <string>当前处理信息</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QTextBrowser" name="tb_log">
-           <property name="minimumSize">
-            <size>
-             <width>560</width>
-             <height>660</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QProgressBar" name="prg_grab">
+         <property name="maximum">
+          <number>200</number>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
+         </property>
+         <property name="invertedAppearance">
+          <bool>false</bool>
+         </property>
+         <property name="textDirection">
+          <enum>QProgressBar::TopToBottom</enum>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

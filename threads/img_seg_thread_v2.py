@@ -9,6 +9,7 @@ import time
 
 # from threads.img_capture_thread import signal_auto_seg
 from threads.img_save_thread import ImageSaveTask
+from signals.global_signals import signals
 
 
 # # 将项目根目录添加到 sys.path
@@ -17,8 +18,8 @@ from threads.img_save_thread import ImageSaveTask
 
 class ImgSegThread(QThread):
     signal_process_complete = pyqtSignal(str)  # 自定义信号，用于通知处理完成
-    signal_concat_complete = pyqtSignal(np.ndarray)  # 新增信号，用于通知拼接完成
-    signal_seg_complete = pyqtSignal(np.ndarray)
+    signal_concat_complete = pyqtSignal(str,np.ndarray)  # 新增信号，用于通知拼接完成
+    signal_seg_complete = pyqtSignal(str,np.ndarray)
 
     def __init__(self):
         super(ImgSegThread, self).__init__()
@@ -27,7 +28,8 @@ class ImgSegThread(QThread):
         self._is_running = False
         self.img1 = None
         self.img2 = None
-        self.code = None
+        self.img1_path = None
+        self.img2_path = None
         
 
     def one_concat(self,root_path,files_path,save_path,x1=2000,x2=2700,x3=3350): # 单次图片的拼接
@@ -77,7 +79,7 @@ class ImgSegThread(QThread):
     
         return final_matrix        # 单次图片的拼接
 
-    def auto_concat(self,img1,img2,code,save_path,x1=2000,x2=2700,x3=3350): # 自动拼接
+    def auto_concat(self,img1,img2,img1_path,img2_path,save_path,x1=2000,x2=2700,x3=3350): # 自动拼接
         sum_rows = img1.shape[0]
         # the image length
         sum_cols = img1.shape[1]
@@ -103,15 +105,17 @@ class ImgSegThread(QThread):
         # final_matrix[0:sum_rows, x2:x3] = part3
         # final_matrix[0:sum_rows, x3:sum_cols] = part8
         # print(finnal_save_path)
+        # 获取文件路径中的倒数第二个文件夹名称
+        code = img1_path.split("\\")[-2]
         finnal_save_path = os.path.join(save_path, code + '.png')
-        self.signal_concat_complete.emit(final_matrix)
+        self.signal_concat_complete.emit(finnal_save_path, final_matrix)
         self.signal_process_complete.emit(f"图像拼接完成: {str(finnal_save_path)}{str(final_matrix.shape)}")
         # 原代码：立即写入磁盘
         # cv2.imwrite(finnal_save_path, final_matrix)
         # 优化后：异步写入（需要添加QThreadPool）
         QThreadPool.globalInstance().start(ImageSaveTask(finnal_save_path, final_matrix)) 
     
-        return final_matrix        # 单次图片的拼接
+        return finnal_save_path, final_matrix        # 单次图片的拼接
 
     def auto_seg_v2(self,concat_matrix,code,args): # 自动分割
         if args['slide_predict']:
@@ -175,7 +179,7 @@ class ImgSegThread(QThread):
 
         return mask
         
-    def auto_seg(self,concat_matrix,code,args): # 自动分割
+    def auto_seg(self,concat_matrix,image_path,args): # 自动分割
         if args['slide_predict']:
             h, w = concat_matrix.shape[:2]
             window_h, window_w = args['slide_size']
@@ -208,19 +212,20 @@ class ImgSegThread(QThread):
             label_map = np.array(result.label_map).reshape(result.shape)
             mask = np.where(label_map > 0, 255, 0).astype(np.uint8)
 
-        # 发送分割完成信号
-        self.signal_seg_complete.emit(mask)
-
         # 保存掩码图
-        finnal_seg_save_path = os.path.join(args['seg_save_path'], code + '.png')
+        # image_path的文件名，包含后缀
+        image_name = os.path.basename(image_path)
+        finnal_seg_save_path = os.path.join(args['seg_save_path'],image_name)
         if not os.path.exists(os.path.dirname(finnal_seg_save_path)):  # 判断文件夹是否存在
             os.makedirs(os.path.dirname(finnal_seg_save_path))  # 创建文件夹
+        # 发送分割完成信号
+        self.signal_seg_complete.emit(finnal_seg_save_path,mask)    
         # cv2.imwrite(finnal_seg_save_path, mask)
         QThreadPool.globalInstance().start(ImageSaveTask(finnal_seg_save_path, mask))
 
         self.signal_process_complete.emit(f"图像分割成功: {finnal_seg_save_path}, mask.shape: {mask.shape}")
 
-        return mask
+        return finnal_seg_save_path, mask
         
         
 
@@ -257,21 +262,24 @@ class ImgSegThread(QThread):
                 try:
                     # 图像拼接
                     start_time = time.time()
-                    concat_matrix = self.auto_concat(self.img1,self.img2,self.code,concat_save_path,x1,x2,x3)
+                    concat_image_path, concat_matrix = self.auto_concat(self.img1,self.img2,self.img1_path,self.img2_path,concat_save_path,x1,x2,x3)
                     end_time = time.time()
                     elapsed_time = end_time - start_time
                     self.signal_process_complete.emit(f"图像拼接完成: {str(concat_matrix.shape)}\n耗时: {elapsed_time:.2f}秒")
                     # 图像分割
                     start_time = time.time()
-                    mask = self.auto_seg(concat_matrix,self.code,self.args)
+                    mask_path, mask = self.auto_seg(concat_matrix,concat_image_path,self.args)
                     # mask = self.auto_seg_v2(concat_matrix,self.code,self.args)  # 优化后
                     end_time = time.time()
                     elapsed_time = end_time - start_time
-                    # print(f"耗时: {elapsed_time:.2f}秒")
+                    
+                    # # 发送信号，用于后续处理
+                    signals.img_postprocess_signal.emit(mask_path, mask)
+
                     self.signal_process_complete.emit(f"图像分割成功: {str(mask.shape)}\n耗时: {elapsed_time:.2f}秒")
                 except Exception as e:
                     print(f"图像自动分割失败: {str(e)}")
-                    self.signal_process_complete.emit(f"图像自动分割失败: {str(e)}")    
+                    self.signal_process_complete.emit(f"图像自动分割失败: {str(e)}")  
             else:
                 try:
                     # 遍历拼接后的图像进行分割
