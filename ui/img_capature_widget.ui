@@ -126,7 +126,7 @@ font-weight: bold;</string>
    <item>
     <layout class="QVBoxLayout" name="vl_control">
      <item>
-      <layout class="QHBoxLayout" name="hl_serialInfo">
+      <layout class="QHBoxLayout" name="hl_serialInfo" stretch="2,2,6,1,4">
        <item>
         <layout class="QVBoxLayout" name="vl_arduino">
          <item>
@@ -293,7 +293,7 @@ font-weight: bold;</string>
           <widget class="QLineEdit" name="txt_saveDir">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>180</width>
              <height>30</height>
             </size>
            </property>

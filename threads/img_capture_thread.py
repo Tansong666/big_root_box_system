@@ -48,7 +48,7 @@ class ImgCapture_Thread(QThread):  # 用于扫描 这个类可能用于在一个
                 elif direction == 3:
                     break
             if self.startcode == str(scanning_index_now): 
-                self.savapath = self.savapath + '_res'
+                self.savapath = self.savapath + f'_{self.startcode}'
             if os.path.exists(self.savapath + '/' + str(scanning_index_now)) == False:
                 os.makedirs(self.savapath + '/' + str(scanning_index_now))  # 递归地创建目录。如果目录已经存在，则抛出OSError。
             elif direction == 3:

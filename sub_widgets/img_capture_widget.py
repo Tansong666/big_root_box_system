@@ -167,7 +167,12 @@ class ImgCaptureWidget(QWidget):
     def go_forward(self): # 用于向前
         global direction
         global com_scanning
-        com_scanning.flushInput()   # 用于清空串口缓冲区
+        try:
+            com_scanning.flushInput()  # 用于清空串口缓冲区
+        except AttributeError:
+            print(f"扫码器串口未打开---{AttributeError}:'NoneType' object has no attribute 'flushInput'")
+            return
+        
         self.img_capture_thread.signal_img1_set.connect(self.update_graphicsview1) ##### todo 自定义信号，接收emit（image）信号，传递image参数，用于更新图形场景
         self.img_capture_thread.signal_img2_set.connect(self.update_graphicsview2) # 用于更新图形场景
         # self.thread_manager.start(self.thread_capture)
@@ -193,12 +198,12 @@ class ImgCaptureWidget(QWidget):
         # self.thread_manager.start(self.thread_capture)
         direction = 3
         print('停止扫描')
-        img1_save_path = "E:\\big_root_system\\data\\0102\\512\\1.png"
-        img2_save_path = "E:\\big_root_system\\data\\0102\\512\\2.png"
-        img1 = cv2.imread(img1_save_path)
-        img2 = cv2.imread(img2_save_path)
-        # signals.signal_auto_seg.emit(img1, img2, str(512))  # emit 方法不支持关键字参数 
-        signals.img_seg_signal.emit(img1_save_path, img2_save_path, img1, img2)
+        # img1_save_path = "E:\\big_root_system\\data\\0102\\512\\1.png"
+        # img2_save_path = "E:\\big_root_system\\data\\0102\\512\\2.png"
+        # img1 = cv2.imread(img1_save_path)
+        # img2 = cv2.imread(img2_save_path)
+        # # signals.signal_auto_seg.emit(img1, img2, str(512))  # emit 方法不支持关键字参数 
+        # signals.img_seg_signal.emit(img1_save_path, img2_save_path, img1, img2)
 
     def keyPressEvent(self, event):
         global direction

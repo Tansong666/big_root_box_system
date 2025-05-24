@@ -31,11 +31,11 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         # 创建一个 QWidget（这里使用 QLineEdit 作为示例）
         # min-width: 150px; /* 设置 tab 的最小宽度，可根据需要调整 */
-        self.ui.tabWidget.tabBar().setStyleSheet("""
-            QTabBar::tab {
-                font-size: 8pt;
-            }
-        """)
+        # self.ui.tabWidget.tabBar().setStyleSheet("""
+        #     QTabBar::tab {
+        #         font-size: 8pt;
+        #     }
+        # """)
         self.ui.tabWidget.addTab(ImgCaptureWidget(self), "根系图像采集")
         self.ui.tabWidget.addTab(ImgSegWidget(self), "根系图像分割")
         self.ui.tabWidget.addTab(ImgPostprocessWidget(self), "根系图像后处理")
