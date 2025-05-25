@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PostprocessWidget</class>
- <widget class="QWidget" name="PostprocessWidget">
+ <class>ImgProcessWidget</class>
+ <widget class="QWidget" name="ImgProcessWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1950</width>
-    <height>1015</height>
+    <width>1854</width>
+    <height>1162</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_7">
+  <layout class="QVBoxLayout" name="vl_imgProcess">
    <item>
     <widget class="QSplitter" name="splitter_mian">
      <property name="orientation">
@@ -46,18 +46,18 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>459</width>
-         <height>1354</height>
+         <width>410</width>
+         <height>1117</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <layout class="QVBoxLayout" name="vl_scrollArea">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_DataDir_2">
+         <layout class="QHBoxLayout" name="hl_dataDir">
           <property name="spacing">
            <number>7</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_DataDir_post">
+           <widget class="QLabel" name="lbl_dataDir">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -87,7 +87,7 @@ font-weight: bold;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_DataDirShow_post">
+           <widget class="QLabel" name="lbl_dataDirShow">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -106,7 +106,7 @@ font-weight: bold;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btn_DataDir_post">
+           <widget class="QPushButton" name="btn_dataDirSelect">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -127,7 +127,7 @@ font-weight: bold;</string>
          </layout>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_infer_device">
+         <widget class="QGroupBox" name="grp_inferDevice">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -145,7 +145,7 @@ font-weight: bold;</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QRadioButton" name="radioButton_edge_post">
+            <widget class="QRadioButton" name="rdo_edge">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 13px;
@@ -163,7 +163,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="radioButton_serving_post">
+            <widget class="QRadioButton" name="rdo_serving">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 13px;
@@ -184,6 +184,23 @@ font-weight: bold;</string>
          </widget>
         </item>
         <item>
+         <widget class="Line" name="line_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="chk_isConcat">
+          <property name="text">
+           <string>图像拼接</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="groupBox_img_concat">
           <property name="font">
            <font>
@@ -198,217 +215,226 @@ font-weight: bold;</string>
            <string notr="true">font-family: '微软雅黑';font-size: 15px;font-weight: bold;</string>
           </property>
           <property name="title">
-           <string>图像拼接</string>
+           <string/>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_8">
-           <item>
-            <layout class="QGridLayout" name="gridLayout_3" columnstretch="1,7,1">
-             <item row="0" column="2">
-              <widget class="QSpinBox" name="spinBox_x1">
-               <property name="styleSheet">
-                <string notr="true">font-family: '微软雅黑';
+          <layout class="QGridLayout" name="gridLayout_9">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="0" column="5">
+            <widget class="Line" name="line_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="spin_x1">
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
 font-size: 12px;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-               <property name="maximum">
-                <number>4000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>2000</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QSpinBox" name="spinBox_x3">
-               <property name="styleSheet">
-                <string notr="true">font-family: '微软雅黑';
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="maximum">
+              <number>4000</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>2000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="lbl_x3">
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
 font-size: 12px;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-               <property name="maximum">
-                <number>4000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>2730</number>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_x1">
-               <property name="styleSheet">
-                <string notr="true">font-family: '微软雅黑';
+             </property>
+             <property name="text">
+              <string>X3:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="Line" name="line_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_x1">
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
 font-size: 12px;</string>
-               </property>
-               <property name="text">
-                <string>X1:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QSpinBox" name="spinBox_x2">
-               <property name="styleSheet">
-                <string notr="true">font-family: '微软雅黑';
+             </property>
+             <property name="text">
+              <string>X1:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="7">
+            <widget class="QSpinBox" name="spin_x3">
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
 font-size: 12px;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="maximum">
+              <number>4000</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>2730</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="8">
+            <layout class="QHBoxLayout" name="hl_concatSave">
+             <item>
+              <widget class="QLabel" name="lbl_concatSave">
+               <property name="font">
+                <font>
+                 <family>微软雅黑</family>
+                 <pointsize>-1</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-               <property name="maximum">
-                <number>4000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>2340</number>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_x2">
-               <property name="styleSheet">
-                <string notr="true">font-family: '微软雅黑';
-font-size: 12px;</string>
-               </property>
-               <property name="text">
-                <string>X2:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QSlider" name="horizontalSlider_x2">
-               <property name="maximum">
-                <number>4000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>2340</number>
-               </property>
-               <property name="sliderPosition">
-                <number>2340</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0" colspan="3">
-              <layout class="QHBoxLayout" name="horizontalLayout_SaveDir_postprocess_4">
-               <item>
-                <widget class="QLabel" name="label_SaveDir_concat">
-                 <property name="font">
-                  <font>
-                   <family>微软雅黑</family>
-                   <pointsize>-1</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-family: '微软雅黑';
-font-size: 12px;</string>
-                 </property>
-                 <property name="text">
-                  <string>拼接保存路径：</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_SaveDir_concat"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_SaveDir_concat">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-family: '微软雅黑';
-font-size: 12px;</string>
-                 </property>
-                 <property name="text">
-                  <string> . . . </string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_3">
                <property name="styleSheet">
                 <string notr="true">font-family: '微软雅黑';
 font-size: 12px;</string>
                </property>
                <property name="text">
-                <string>X3:</string>
+                <string>保存路径：</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
                </property>
               </widget>
              </item>
-             <item row="2" column="1">
-              <widget class="QSlider" name="horizontalSlider_x3">
-               <property name="maximum">
-                <number>4000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>2730</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
+             <item>
+              <widget class="QLineEdit" name="txt_concatSaveDir"/>
              </item>
-             <item row="0" column="1">
-              <widget class="QSlider" name="horizontalSlider_x1">
-               <property name="maximum">
-                <number>4000</number>
+             <item>
+              <widget class="QPushButton" name="btn_concatSaveDir">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="singleStep">
-                <number>10</number>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
                </property>
-               <property name="value">
-                <number>2000</number>
+               <property name="styleSheet">
+                <string notr="true">font-family: '微软雅黑';
+font-size: 12px;</string>
                </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+               <property name="text">
+                <string> . . . </string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
+           <item row="0" column="4">
+            <widget class="QSpinBox" name="spin_x2">
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
+font-size: 12px;</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="maximum">
+              <number>4000</number>
+             </property>
+             <property name="singleStep">
+              <number>10</number>
+             </property>
+             <property name="value">
+              <number>2340</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="lbl_x2">
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
+font-size: 12px;</string>
+             </property>
+             <property name="text">
+              <string>X2:</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_img_seg">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="chk_isSeg">
+          <property name="text">
+           <string>根系分割</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="grp_imgSeg">
           <property name="font">
            <font>
             <family>微软雅黑</family>
@@ -426,26 +452,50 @@ font-size: 15px;
 font-weight: bold;</string>
           </property>
           <property name="title">
-           <string>图像分割</string>
+           <string/>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item row="0" column="0" colspan="2">
-            <widget class="QTabWidget" name="tabWidget_seg">
+            <widget class="QTabWidget" name="tab_imgSeg">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 12px;
 font-weight: bold;</string>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
-             <widget class="QWidget" name="tab_7">
+             <widget class="QWidget" name="tab1_edgeSeg">
               <attribute name="title">
                <string>边缘端</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_8">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
                <item row="0" column="0">
-                <widget class="QGroupBox" name="groupBox_edge_seg">
+                <widget class="QGroupBox" name="grp_edgeSeg">
                  <property name="font">
                   <font>
                    <family>微软雅黑</family>
@@ -462,17 +512,35 @@ font-size: 12px;</string>
                   <string>参数设置</string>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_5">
+                  <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
                   <item row="0" column="0">
-                   <widget class="QLabel" name="label_runtime_opt_2">
+                   <widget class="QLabel" name="lbl_runOpt">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="maximumSize">
                      <size>
-                      <width>121</width>
+                      <width>60</width>
                       <height>40</height>
                      </size>
                     </property>
@@ -482,51 +550,9 @@ font-size: 12px;</string>
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QComboBox" name="cb_runtime_opt">
+                   <widget class="QComboBox" name="cb_runOpt">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_model_seg_2">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>121</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>模型类型：</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QComboBox" name="cb_seg_model_opt">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="currentText">
-                     <string/>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="2">
-                   <widget class="QPushButton" name="btn_load_model">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
@@ -537,13 +563,67 @@ font-size: 12px;</string>
                       <height>16777215</height>
                      </size>
                     </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2" colspan="3">
+                   <widget class="QLabel" name="lbl_segModelType">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>40</height>
+                     </size>
+                    </property>
                     <property name="text">
-                     <string>加载模型</string>
+                     <string>模型类型：</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_seg_weight_2">
+                  <item row="0" column="5" colspan="2">
+                   <widget class="QComboBox" name="cb_segModelType">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>80</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="currentText">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="7">
+                   <widget class="QPushButton" name="btn_loadSegModel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>加载</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="lbl_segWeight">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -561,11 +641,11 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="lineEdit_weight_dir"/>
+                  <item row="1" column="1" colspan="6">
+                   <widget class="QLineEdit" name="txt_segWeight"/>
                   </item>
-                  <item row="2" column="2">
-                   <widget class="QPushButton" name="btn_weight_dir">
+                  <item row="1" column="7">
+                   <widget class="QPushButton" name="btn_segWeight">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -574,7 +654,7 @@ font-size: 12px;</string>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>80</width>
+                      <width>50</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -583,8 +663,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
-                   <widget class="QLabel" name="label_SaveDir_seg_2">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="lbl_segSave">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -602,11 +682,11 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="lineEdit_SaveDir_seg"/>
+                  <item row="2" column="1" colspan="6">
+                   <widget class="QLineEdit" name="txt_segSaveDir"/>
                   </item>
-                  <item row="3" column="2">
-                   <widget class="QPushButton" name="btn_SaveDir_seg">
+                  <item row="2" column="7">
+                   <widget class="QPushButton" name="btn_segSaveDir">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -615,7 +695,7 @@ font-size: 12px;</string>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>80</width>
+                      <width>50</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -624,8 +704,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_IsSlide">
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="lbl_slideSeg">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -643,8 +723,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="1">
-                   <widget class="QCheckBox" name="checkBox_IsSlide">
+                  <item row="3" column="1" colspan="6">
+                   <widget class="QCheckBox" name="chk_isSlide">
                     <property name="text">
                      <string>prediction by sliding window</string>
                     </property>
@@ -653,8 +733,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="label_CropSize">
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="lbl_cropSize">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -672,8 +752,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1">
-                   <widget class="QSpinBox" name="spinBox_CropSize_predict">
+                  <item row="4" column="1" colspan="2">
+                   <widget class="QSpinBox" name="spin_cropSize">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -694,8 +774,15 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="label_Stride">
+                  <item row="4" column="3">
+                   <widget class="Line" name="line_7">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="4" colspan="2">
+                   <widget class="QLabel" name="lbl_stride">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -704,7 +791,7 @@ font-size: 12px;</string>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>121</width>
+                      <width>50</width>
                       <height>28</height>
                      </size>
                     </property>
@@ -713,8 +800,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1">
-                   <widget class="QSpinBox" name="spinBox_Stride">
+                  <item row="4" column="6" colspan="2">
+                   <widget class="QSpinBox" name="spin_stride">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -723,7 +810,7 @@ font-size: 12px;</string>
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>383</width>
+                      <width>500</width>
                       <height>28</height>
                      </size>
                     </property>
@@ -735,8 +822,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="label_IsResize">
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="lbl_resizeSeg">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -754,8 +841,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1">
-                   <widget class="QCheckBox" name="checkBox_IsResize">
+                  <item row="5" column="1" colspan="5">
+                   <widget class="QCheckBox" name="chk_isResize">
                     <property name="text">
                      <string>prediction before resize</string>
                     </property>
@@ -764,8 +851,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="label_scale">
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="lbl_scale">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -783,8 +870,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="1">
-                   <widget class="QDoubleSpinBox" name="doubleSpinBox_resize">
+                  <item row="6" column="1">
+                   <widget class="QDoubleSpinBox" name="dspin_scale">
                     <property name="maximum">
                      <double>1.000000000000000</double>
                     </property>
@@ -801,13 +888,13 @@ font-size: 12px;</string>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="tab_8">
+             <widget class="QWidget" name="tab2_servingSeg">
               <attribute name="title">
                <string>服务端</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_10">
                <item row="0" column="0" rowspan="2">
-                <widget class="QGroupBox" name="groupBox_serving_seg">
+                <widget class="QGroupBox" name="grp_servingSeg">
                  <property name="title">
                   <string>Serving参数设置</string>
                  </property>
@@ -915,14 +1002,21 @@ font-size: 12px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_is_denoise">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="chk_isDenoise">
           <property name="text">
            <string>根系除杂</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_imgDenoise">
+         <widget class="QGroupBox" name="grp_imgDenoise">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -943,10 +1037,10 @@ font-size: 12px;</string>
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
-            <widget class="QTabWidget" name="tabWidget_imgDenoise">
+            <widget class="QTabWidget" name="tab_imgDenoise">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -954,9 +1048,9 @@ font-size: 12px;</string>
               </sizepolicy>
              </property>
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
-             <widget class="QWidget" name="tab_opencv">
+             <widget class="QWidget" name="tab1_opencv">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -968,42 +1062,36 @@ font-size: 12px;</string>
                 <number>5</number>
                </property>
                <property name="topMargin">
-                <number>8</number>
+                <number>5</number>
                </property>
                <property name="rightMargin">
                 <number>5</number>
                </property>
                <property name="bottomMargin">
-                <number>8</number>
+                <number>5</number>
                </property>
                <item>
-                <widget class="QGroupBox" name="groupBox_ImageProcessing">
+                <widget class="QGroupBox" name="grp_cvProcess">
                  <property name="title">
                   <string>参数设置</string>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
                   <property name="leftMargin">
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
                    <number>5</number>
                   </property>
                   <property name="rightMargin">
                    <number>5</number>
                   </property>
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
                   <item>
-                   <layout class="QGridLayout" name="gridLayout">
-                    <property name="leftMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>5</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>5</number>
-                    </property>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_IsRSA">
+                   <layout class="QHBoxLayout" name="hl_isRSA">
+                    <item>
+                     <widget class="QLabel" name="lbl_isRSA">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                         <horstretch>0</horstretch>
@@ -1021,8 +1109,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="0" column="1">
-                     <widget class="QCheckBox" name="checkBox_IsRSA">
+                    <item>
+                     <widget class="QCheckBox" name="chk_isRSA">
                       <property name="text">
                        <string>remove small areas</string>
                       </property>
@@ -1031,27 +1119,25 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="1" column="0">
-                     <widget class="QLabel" name="label_dilate_iters">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
+                    <item>
+                     <spacer name="hSpacer_4">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
                       </property>
-                      <property name="maximumSize">
+                      <property name="sizeHint" stdset="0">
                        <size>
-                        <width>121</width>
-                        <height>28</height>
+                        <width>40</width>
+                        <height>20</height>
                        </size>
                       </property>
-                      <property name="text">
-                       <string>dilate_iterations:</string>
-                      </property>
-                     </widget>
+                     </spacer>
                     </item>
-                    <item row="1" column="1">
-                     <widget class="QSpinBox" name="spinBox_dilate_iters">
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QGridLayout" name="gl_removeSmall">
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="spin_dilateIters">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1072,27 +1158,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="2" column="0">
-                     <widget class="QLabel" name="label_threshold_area">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>121</width>
-                        <height>28</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>threshold_area:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="2" column="1">
-                     <widget class="QSpinBox" name="spinBox_threshold_area">
+                    <item row="0" column="3">
+                     <widget class="QSpinBox" name="spin_thresholdArea">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1116,8 +1183,50 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="0">
-                     <widget class="QLabel" name="label_IsRBA">
+                    <item row="0" column="2">
+                     <widget class="QLabel" name="lbl_thresholdArea">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>28</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>area:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="lbl_dilateIters">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>28</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>iters:</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="hl_isRBA">
+                    <item>
+                     <widget class="QLabel" name="lbl_isRBA">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                         <horstretch>0</horstretch>
@@ -1135,8 +1244,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="3" column="1">
-                     <widget class="QCheckBox" name="checkBox_IsRBA">
+                    <item>
+                     <widget class="QCheckBox" name="chk_isRBA">
                       <property name="text">
                        <string>remove boundary point</string>
                       </property>
@@ -1145,8 +1254,25 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="0">
-                     <widget class="QLabel" name="label_left_point">
+                    <item>
+                     <spacer name="hSpacer_5">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QGridLayout" name="gl_RBA">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="lbl_leftPoint">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                         <horstretch>0</horstretch>
@@ -1155,7 +1281,7 @@ font-size: 12px;</string>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>121</width>
+                        <width>50</width>
                         <height>25</height>
                        </size>
                       </property>
@@ -1164,8 +1290,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="4" column="1">
-                     <widget class="QSpinBox" name="spinBox_rba_left">
+                    <item row="1" column="1">
+                     <widget class="QSpinBox" name="spin_rightPoint">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1189,8 +1315,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="0">
-                     <widget class="QLabel" name="label_top_point">
+                    <item row="1" column="2">
+                     <widget class="QLabel" name="lbl_bottomPoint">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                         <horstretch>0</horstretch>
@@ -1204,12 +1330,75 @@ font-size: 12px;</string>
                        </size>
                       </property>
                       <property name="text">
+                       <string>bottom:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="2">
+                     <widget class="QLabel" name="lbl_topPoint">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="text">
                        <string>top:</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="5" column="1">
-                     <widget class="QSpinBox" name="spinBox_rba_top">
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="lbl_rightPoint">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>121</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>right:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QSpinBox" name="spin_leftPoint">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>383</width>
+                        <height>28</height>
+                       </size>
+                      </property>
+                      <property name="maximum">
+                       <number>999999999</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>100</number>
+                      </property>
+                      <property name="value">
+                       <number>0</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="3">
+                     <widget class="QSpinBox" name="spin_topPoint">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1236,71 +1425,8 @@ font-size: 12px;</string>
                       </property>
                      </widget>
                     </item>
-                    <item row="6" column="0">
-                     <widget class="QLabel" name="label_right_point">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>121</width>
-                        <height>25</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>right:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="6" column="1">
-                     <widget class="QSpinBox" name="spinBox_rba_right">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>383</width>
-                        <height>28</height>
-                       </size>
-                      </property>
-                      <property name="maximum">
-                       <number>999999999</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>100</number>
-                      </property>
-                      <property name="value">
-                       <number>0</number>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="0">
-                     <widget class="QLabel" name="label_bottom_point">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>121</width>
-                        <height>25</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>bottom:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="7" column="1">
-                     <widget class="QSpinBox" name="spinBox_rba_bottom">
+                    <item row="1" column="3">
+                     <widget class="QSpinBox" name="spin_bottomPoint">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1327,19 +1453,19 @@ font-size: 12px;</string>
                    </layout>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_SaveDir_imgDenoise">
+                   <layout class="QHBoxLayout" name="hl_denoiseSave">
                     <item>
-                     <widget class="QLabel" name="label_SaveDir_denoise">
+                     <widget class="QLabel" name="lbl_denoiseSave">
                       <property name="text">
-                       <string>save dir:</string>
+                       <string>保存地址：</string>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QLineEdit" name="lineEdit_SaveDir_denoise"/>
+                     <widget class="QLineEdit" name="txt_denoiseSaveDir"/>
                     </item>
                     <item>
-                     <widget class="QPushButton" name="btn_SaveDir_denoise">
+                     <widget class="QPushButton" name="btn_denoiseSaveDir">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                         <horstretch>0</horstretch>
@@ -1364,7 +1490,7 @@ font-size: 12px;</string>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="tab_deeplearning">
+             <widget class="QWidget" name="tab2_deeplearning">
               <attribute name="title">
                <string>深度学习</string>
               </attribute>
@@ -1380,14 +1506,21 @@ font-size: 12px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="checkBox_is_inpaint">
+         <widget class="Line" name="line_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="chk_isInpaint">
           <property name="text">
            <string>根系修复</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_imgInpaint">
+         <widget class="QGroupBox" name="grp_imgInpaint">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1408,14 +1541,14 @@ font-size: 12px;</string>
             <number>0</number>
            </property>
            <property name="bottomMargin">
-            <number>5</number>
+            <number>0</number>
            </property>
            <item>
-            <widget class="QTabWidget" name="tabWidget_imgInpaint">
+            <widget class="QTabWidget" name="tab_imgInpaint">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
-             <widget class="QWidget" name="tab_edge_inpaint">
+             <widget class="QWidget" name="tab1_edgeInpaint">
               <attribute name="title">
                <string>边缘端</string>
               </attribute>
@@ -1423,42 +1556,41 @@ font-size: 12px;</string>
                <property name="leftMargin">
                 <number>5</number>
                </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
                <property name="rightMargin">
                 <number>5</number>
                </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
                <item>
-                <widget class="QGroupBox" name="groupBox">
+                <widget class="QGroupBox" name="grp_edgeInpaint">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="title">
                   <string>参数设置</string>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_2">
                   <property name="leftMargin">
-                   <number>8</number>
+                   <number>5</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>5</number>
                   </property>
                   <property name="rightMargin">
                    <number>5</number>
                   </property>
-                  <item row="3" column="2">
-                   <widget class="QPushButton" name="btn_inpaint_weight_path">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>50</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string> . . . </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="label_model_seg">
+                  <property name="bottomMargin">
+                   <number>5</number>
+                  </property>
+                  <item row="1" column="2">
+                   <widget class="QLabel" name="lbl_inpaintModel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1477,103 +1609,7 @@ font-size: 12px;</string>
                    </widget>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QLabel" name="label_seg_weight">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>121</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>模型文件：</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="2">
-                   <widget class="QPushButton" name="btn_load_inpaint_model">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>50</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>加载</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="label_inpaint_iters">
-                    <property name="text">
-                     <string>修复次数</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QComboBox" name="cb_inpaint_runtime">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_runtime_opt">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>121</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>推理后端：</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="lineEdit_inpaint_weight_path"/>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QSpinBox" name="spinBox_inpaint_iters">
-                    <property name="maximum">
-                     <number>999999</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>5</number>
-                    </property>
-                    <property name="value">
-                     <number>0</number>
-                    </property>
-                    <property name="displayIntegerBase">
-                     <number>10</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="lineEdit_SaveDir_post"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_SaveDir_seg">
+                   <widget class="QLabel" name="lbl_inpintSave">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                       <horstretch>0</horstretch>
@@ -1591,8 +1627,8 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="2">
-                   <widget class="QPushButton" name="btn_SaveDir_post">
+                  <item row="2" column="4">
+                   <widget class="QPushButton" name="btn_inpaintWeightDir">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1610,8 +1646,44 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="1">
-                   <widget class="QComboBox" name="cb_inpaint_model">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="lbl_inpaintIters">
+                    <property name="text">
+                     <string>修复次数</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="4">
+                   <widget class="QPushButton" name="btn_inpaintSaveDir">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string> . . . </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QComboBox" name="cb_inpaintRunOpt">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="3">
+                   <widget class="QComboBox" name="cb_inpaintModel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1623,12 +1695,91 @@ font-size: 12px;</string>
                     </property>
                    </widget>
                   </item>
+                  <item row="3" column="1" colspan="3">
+                   <widget class="QLineEdit" name="txt_inpaintSaveDir"/>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="lbl_inpaintWeight">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>121</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>模型文件：</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="4">
+                   <widget class="QPushButton" name="btn_loadInpaintModel">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>加载</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QSpinBox" name="spin_inpaintIters">
+                    <property name="maximum">
+                     <number>999999</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>5</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                    <property name="displayIntegerBase">
+                     <number>10</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1" colspan="3">
+                   <widget class="QLineEdit" name="txt_inpaintWeightDir"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="lbl_inpaintRunOpt">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>121</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>推理后端：</string>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
               </layout>
              </widget>
-             <widget class="QWidget" name="tab_serving_inpaint">
+             <widget class="QWidget" name="tab2_servingInpaint">
               <attribute name="title">
                <string>服务端</string>
               </attribute>
@@ -1642,6 +1793,19 @@ font-size: 12px;</string>
            </item>
           </layout>
          </widget>
+        </item>
+        <item>
+         <spacer name="vSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -1666,7 +1830,7 @@ font-size: 12px;</string>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QFrame" name="frame_imageview">
+       <widget class="QFrame" name="frame_imgView">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -1682,55 +1846,114 @@ font-size: 12px;</string>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_15">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>6</number>
-         </property>
+        <layout class="QVBoxLayout" name="vl_imgView">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_imageview_2">
+          <layout class="QHBoxLayout" name="hl_imgViewTop">
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Left"/>
+            <widget class="myGraphicsView" name="view_concatImg"/>
            </item>
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Right_3"/>
+            <widget class="myGraphicsView" name="view_segImg"/>
            </item>
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Right"/>
+            <widget class="myGraphicsView" name="view_denoiseImg"/>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_ImageInfo_2" stretch="0,0,0">
+          <layout class="QHBoxLayout" name="hl_imgViewBottomInfo" stretch="1,1,1">
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Left_3"/>
+            <widget class="QLabel" name="lbl_concatPath">
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Right_4"/>
+            <widget class="QLabel" name="lbl_segPath">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="myGraphicsView" name="post_graphicsView_Left_4"/>
+            <widget class="QLabel" name="lbl_denoisePath">
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_btns_2">
+          <layout class="QHBoxLayout" name="hl_imgViewBottom" stretch="0,0,0">
+           <item>
+            <widget class="myGraphicsView" name="view_inpaintImg"/>
+           </item>
+           <item>
+            <widget class="myGraphicsView" name="view_visualizeImg"/>
+           </item>
+           <item>
+            <widget class="QGraphicsView" name="graphicsView"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hl_imgViewTopInfo" stretch="1,1,1">
+           <item>
+            <widget class="QLabel" name="lbl_inpaintPath">
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_visualPath">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lbl_show">
+             <property name="text">
+              <string>图像路径：</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="hl_startButton">
            <property name="spacing">
             <number>9</number>
            </property>
            <item>
-            <spacer name="horizontalSpacer_btnsLeft_2">
+            <spacer name="hSpacer_btnsLeft">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -1743,7 +1966,31 @@ font-size: 12px;</string>
             </spacer>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_denoise">
+            <widget class="QPushButton" name="btn_startConcat">
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>拼接</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_startSeg">
+             <property name="styleSheet">
+              <string notr="true">font-family: '微软雅黑';
+font-size: 14px;
+font-weight: bold;</string>
+             </property>
+             <property name="text">
+              <string>分割</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_startDenoise">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
@@ -1755,7 +2002,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_inpaint">
+            <widget class="QPushButton" name="btn_startInpaint">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
@@ -1767,14 +2014,14 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_start_analysis">
+            <widget class="QPushButton" name="btn_startCalculate">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
 font-weight: bold;</string>
              </property>
              <property name="text">
-              <string>性状计算</string>
+              <string>提取性状</string>
              </property>
             </widget>
            </item>
@@ -1880,7 +2127,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <spacer name="horizontalSpacer_btnsRight_2">
+            <spacer name="hSpacer_btnsRight">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -1894,32 +2141,9 @@ font-weight: bold;</string>
            </item>
           </layout>
          </item>
-         <item>
-          <widget class="QLabel" name="label_ImageSize_2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>image size: 0x0</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_CurrentImage_2">
-           <property name="text">
-            <string>currentlabel</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
-       <widget class="QFrame" name="frame_MessagePrinter">
+       <widget class="QFrame" name="frame_messagePrinter">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -1932,7 +2156,7 @@ font-weight: bold;</string>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <layout class="QHBoxLayout" name="hl_messagePrinter">
          <property name="leftMargin">
           <number>0</number>
          </property>
@@ -1946,7 +2170,7 @@ font-weight: bold;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QTextBrowser" name="textBrowser_MessagePrinter_post">
+          <widget class="QTextBrowser" name="txtBrw_messagePrinter">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -1968,7 +2192,7 @@ p, li { white-space: pre-wrap; }
         </layout>
        </widget>
       </widget>
-      <widget class="QTabWidget" name="tabWidget_analysis">
+      <widget class="QTabWidget" name="tab_rootAnalysis">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
          <horstretch>1</horstretch>
@@ -1982,13 +2206,13 @@ p, li { white-space: pre-wrap; }
         </size>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
-       <widget class="QWidget" name="tab_macro_analysis">
+       <widget class="QWidget" name="tab1_macroAnalysis">
         <attribute name="title">
          <string>宏观根系表型分析</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_6">
+        <layout class="QVBoxLayout" name="vl_macroAnalysis">
          <property name="leftMargin">
           <number>5</number>
          </property>
@@ -2002,22 +2226,22 @@ p, li { white-space: pre-wrap; }
           <number>8</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_InputDir_calculate">
+          <layout class="QHBoxLayout" name="hl_calcuInputDir">
            <property name="spacing">
             <number>9</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_InputDir_calculate">
+            <widget class="QLabel" name="lbl_calcuInput">
              <property name="text">
               <string>inpaint_input:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_InputDir_calculate"/>
+            <widget class="QLineEdit" name="txt_calcuInputDir"/>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_InputDir_caculate">
+            <widget class="QPushButton" name="btn_calcuInputDir">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -2032,23 +2256,23 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_LayerSize">
+          <layout class="QGridLayout" name="gl_layerSize">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_LayerHeight">
+            <widget class="QLabel" name="lbl_layerHeight">
              <property name="text">
               <string>Layer_height:</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="spinBox_LayerHeight">
+            <widget class="QSpinBox" name="spin_layerHeight">
              <property name="maximum">
               <number>999999999</number>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerHeight">
+            <widget class="QDoubleSpinBox" name="dspin_layerHeight">
              <property name="decimals">
               <number>4</number>
              </property>
@@ -2061,21 +2285,21 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_LayerWidth">
+            <widget class="QSpinBox" name="spin_layerWidth">
              <property name="maximum">
               <number>999999999</number>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_LayerWidth">
+            <widget class="QLabel" name="lbl_layerWidth">
              <property name="text">
               <string>Layer_width:</string>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_LayerWidth">
+            <widget class="QDoubleSpinBox" name="dspin_layerWidth">
              <property name="decimals">
               <number>4</number>
              </property>
@@ -2090,22 +2314,22 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_SacveDir_calculate">
+          <layout class="QHBoxLayout" name="hl_calcuSave">
            <property name="spacing">
             <number>9</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_SaveDir_calculate">
+            <widget class="QLabel" name="lbl_calcuSave">
              <property name="text">
               <string>save dir:</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_SaveDir_calculate"/>
+            <widget class="QLineEdit" name="txt_calcuSaveDir"/>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_SaveDir_caculate">
+            <widget class="QPushButton" name="btn_calcuSaveDir">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -2120,7 +2344,7 @@ p, li { white-space: pre-wrap; }
           </layout>
          </item>
          <item>
-          <widget class="QTreeWidget" name="treeWidget_Traits">
+          <widget class="QTreeWidget" name="trw_trait">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
              <horstretch>0</horstretch>
@@ -2270,54 +2494,13 @@ p, li { white-space: pre-wrap; }
            </item>
           </widget>
          </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_Analysis">
-           <property name="spacing">
-            <number>9</number>
-           </property>
-           <item>
-            <spacer name="horizontalSpacer_Analysis">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_Calculate">
-             <property name="text">
-              <string>calculate</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_CalculateAll">
-             <property name="text">
-              <string>calculate all</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_StopCalculate">
-             <property name="text">
-              <string>stop</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_micro_analysis">
+       <widget class="QWidget" name="tab2_microAnalysis">
         <attribute name="title">
          <string>细粒度根系表型分析</string>
         </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_9">
+        <layout class="QVBoxLayout" name="vl_microAnalysis">
          <item>
           <widget class="QTreeWidget" name="treeWidget">
            <column>

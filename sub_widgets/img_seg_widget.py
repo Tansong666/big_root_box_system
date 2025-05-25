@@ -40,7 +40,6 @@ class ImgSegWidget(QWidget):
         self.ui = Ui_ImgSegWidget()
         self.ui.setupUi(self)
 
-
         # 2.初始化控件数据
         self.init_data()
         # 3.初始化分割线程
@@ -227,7 +226,7 @@ class ImgSegWidget(QWidget):
     def load_model(self):
         self.load_model_thread.model_path = self.ui.lineEdit_weight_dir.text()
         self.load_model_thread.device = 'gpu'
-        self.load_model_thread.use_trt = False
+        self.load_model_thread.use_trt = True
         self.load_model_thread.use_paddle_trt = False
         # self.load_model_thread = ModelLoadThread(model_path, device, use_trt, use_paddle_trt)
         self.load_model_thread.model_loaded.connect(self.on_model_loaded)

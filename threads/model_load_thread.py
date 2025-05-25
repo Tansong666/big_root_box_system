@@ -25,13 +25,14 @@ class ModelLoadThread(QThread):
         if self.use_trt and os.path.exists('paddle_seg.trt'):
             option.use_trt_backend()
             option.set_trt_cache_file('paddle_seg.trt')
-            return option  
+            return option
 
         if self.use_trt:
             option.use_trt_backend()
-            option.set_trt_input_shape("x", [1, 3, 256, 256], [1, 3, 1024, 1024],
-                                       [1, 3, 2048, 2048])
+            option.set_trt_input_shape("x", [1, 3, 256, 256], [1, 3, 512, 512],
+                                       [1, 3, 1024, 1024])
             option.set_trt_cache_file('paddle_seg.trt')
+            return option
             # option.trt_opt_shape_shrink = True  # 启用动态shape优化
         if self.use_paddle_trt:
             option.use_trt_backend()

@@ -11,3 +11,4 @@ tools/cmd.txt
 
 threads/batch_process_utils
 models/inpaint/*
+paddle_seg.trt

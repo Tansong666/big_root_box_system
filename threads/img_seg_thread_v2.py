@@ -72,12 +72,12 @@ class ImgSegThread(QThread):
         final_matrix[0:sum_rows, x2:x3] = img2[0:sum_rows, x2:x3]  # part7
         final_matrix[0:sum_rows, x3:sum_cols] = img1[0:sum_rows, x3:sum_cols] # part4
         # print(finnal_save_path)
-        self.signal_concat_complete.emit(final_matrix)
+        self.signal_concat_complete.emit(finnal_save_path, final_matrix)
         self.signal_process_complete.emit(f"图像拼接完成: {str(finnal_save_path)}{str(final_matrix.shape)}")
         # cv2.imwrite(finnal_save_path, final_matrix)
         QThreadPool.globalInstance().start(ImageSaveTask(finnal_save_path, final_matrix)) 
     
-        return final_matrix        # 单次图片的拼接
+        return finnal_save_path, final_matrix        # 单次图片的拼接
 
     def auto_concat(self,img1,img2,img1_path,img2_path,save_path,x1=2000,x2=2700,x3=3350): # 自动拼接
         sum_rows = img1.shape[0]
@@ -259,7 +259,7 @@ class ImgSegThread(QThread):
 
         # 图像拼接+分割-----------------------------------------------------------------------------------
             if is_auto_seg:
-                try:
+                # try:
                     # 图像拼接
                     start_time = time.time()
                     concat_image_path, concat_matrix = self.auto_concat(self.img1,self.img2,self.img1_path,self.img2_path,concat_save_path,x1,x2,x3)
@@ -277,11 +277,11 @@ class ImgSegThread(QThread):
                     signals.img_postprocess_signal.emit(mask_path, mask)
 
                     self.signal_process_complete.emit(f"图像分割成功: {str(mask.shape)}\n耗时: {elapsed_time:.2f}秒")
-                except Exception as e:
-                    print(f"图像自动分割失败: {str(e)}")
-                    self.signal_process_complete.emit(f"图像自动分割失败: {str(e)}")  
+                # except Exception as e:
+                #     print(f"图像自动分割失败: {str(e)}")
+                #     self.signal_process_complete.emit(f"图像自动分割失败: {str(e)}")  
             else:
-                try:
+                # try:
                     # 遍历拼接后的图像进行分割
                     for root, _ , files in os.walk(img_path):
                         if not self._is_running:  # 检查是否需要停止线程
@@ -289,7 +289,7 @@ class ImgSegThread(QThread):
                         if files != [] and len(files) == 2:
                             # 记录开始时间
                             start_time = time.time()
-                            concat_matrix=self.one_concat(root,files,concat_save_path,x1,x2,x3)
+                            concat_image_path, concat_matrix=self.one_concat(root,files,concat_save_path,x1,x2,x3)
                             end_time = time.time()
                             elapsed_time = end_time - start_time
                             self.signal_process_complete.emit(f"图像拼接完成: {str(concat_matrix.shape)}\n耗时: {elapsed_time:.2f}秒")
@@ -297,17 +297,17 @@ class ImgSegThread(QThread):
                             # cv2.imshow("concat", concat_matrix)
                             # cv2.waitKey(0)
                             start_time = time.time()
-                            code =os.path.join(root.split("\\")[-2], root.split("\\")[-1])
-                            mask = self.auto_seg(concat_matrix,code,self.args)
+                            # code =os.path.join(root.split("\\")[-2], root.split("\\")[-1])
+                            mask_path, mask = self.auto_seg(concat_matrix,concat_image_path,self.args)
                             end_time = time.time()
                             elapsed_time = end_time - start_time
                             self.signal_process_complete.emit(f"图像分割成功: {str(mask.shape)}\n耗时: {elapsed_time:.2f}秒")
 
                     self.signal_process_complete.emit("全部图像分割完成")
                     print("全部图像分割完成")
-                except Exception as e:
-                    print(f"图像分割失败: {str(e)}")
-                    self.signal_process_complete.emit(f"图像分割失败: {str(e)}")
+                # except Exception as e:
+                #     print(f"图像分割失败: {str(e)}")
+                #     self.signal_process_complete.emit(f"图像分割失败: {str(e)}")
                  
         else:  # 非边缘检测
             pass
