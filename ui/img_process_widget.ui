@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1854</width>
+    <width>1980</width>
     <height>1162</height>
    </rect>
   </property>
@@ -201,7 +201,7 @@ font-weight: bold;</string>
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_img_concat">
+         <widget class="QGroupBox" name="grp_imgConcat">
           <property name="font">
            <font>
             <family>微软雅黑</family>
@@ -475,7 +475,7 @@ font-size: 12px;
 font-weight: bold;</string>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab1_edgeSeg">
               <attribute name="title">
@@ -550,7 +550,7 @@ font-size: 12px;</string>
                    </widget>
                   </item>
                   <item row="0" column="1">
-                   <widget class="QComboBox" name="cb_runOpt">
+                   <widget class="QComboBox" name="cb_segRunOpt">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -585,7 +585,7 @@ font-size: 12px;</string>
                    </widget>
                   </item>
                   <item row="0" column="5" colspan="2">
-                   <widget class="QComboBox" name="cb_segModelType">
+                   <widget class="QComboBox" name="cb_segModel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -642,10 +642,10 @@ font-size: 12px;</string>
                    </widget>
                   </item>
                   <item row="1" column="1" colspan="6">
-                   <widget class="QLineEdit" name="txt_segWeight"/>
+                   <widget class="QLineEdit" name="txt_segWeightDir"/>
                   </item>
                   <item row="1" column="7">
-                   <widget class="QPushButton" name="btn_segWeight">
+                   <widget class="QPushButton" name="btn_segWeightDir">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                       <horstretch>0</horstretch>
@@ -1048,7 +1048,7 @@ font-size: 12px;</string>
               </sizepolicy>
              </property>
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab1_opencv">
               <property name="enabled">
@@ -1546,7 +1546,7 @@ font-size: 12px;</string>
            <item>
             <widget class="QTabWidget" name="tab_imgInpaint">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab1_edgeInpaint">
               <attribute name="title">
@@ -1792,6 +1792,20 @@ font-size: 12px;</string>
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="chk_isCalculate">
+          <property name="text">
+           <string>性状计算</string>
+          </property>
          </widget>
         </item>
         <item>
@@ -2091,7 +2105,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_start_process">
+            <widget class="QPushButton" name="btn_startProcess">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
@@ -2103,7 +2117,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_Stop_post">
+            <widget class="QPushButton" name="btn_stopThread">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
@@ -2115,7 +2129,7 @@ font-weight: bold;</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="btn_ClearLog_post">
+            <widget class="QPushButton" name="btn_clearLog">
              <property name="styleSheet">
               <string notr="true">font-family: '微软雅黑';
 font-size: 14px;
@@ -2143,7 +2157,7 @@ font-weight: bold;</string>
          </item>
         </layout>
        </widget>
-       <widget class="QFrame" name="frame_messagePrinter">
+       <widget class="QFrame" name="frame_printer">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -2170,7 +2184,7 @@ font-weight: bold;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QTextBrowser" name="txtBrw_messagePrinter">
+          <widget class="QTextBrowser" name="txtBrw_printer">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -2206,7 +2220,7 @@ p, li { white-space: pre-wrap; }
         </size>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab1_macroAnalysis">
         <attribute name="title">

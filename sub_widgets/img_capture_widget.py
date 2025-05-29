@@ -7,6 +7,7 @@ import serial as ser
 import numpy as np
 import os
 import cv2
+import psutil
 # 将项目根目录添加到 sys.path
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
@@ -64,6 +65,8 @@ class ImgCaptureWidget(QWidget):
         self.scene = QGraphicsScene() # 用于创建一个图形场景对象
         self.ui.view_grabImg1.setScene(self.scene) # 用于设置图形场景
         self.ui.view_grabImg1.show() # 用于显示图形场景
+
+        self.update_disk_status() # 用于更新磁盘状态
 
     def outputWritten(self, text): # 用于将输出重定向到textBrowser中
         cursor = self.ui.txtBrw_log.textCursor() # 用于获取文本光标
@@ -164,6 +167,35 @@ class ImgCaptureWidget(QWidget):
         self.savepath = path  
         print('The filedir path is ' + path)
 
+    def convert_bytes(self, bytes_value):
+        """
+        将字节数转换为带单位的字符串
+        """
+        if bytes_value >= 1024**3:
+            return f"{bytes_value / (1024**3):.2f} GB"
+        elif bytes_value >= 1024**2:
+            return f"{bytes_value / (1024**2):.2f} MB"
+        elif bytes_value >= 1024:
+            return f"{bytes_value / 1024:.2f} KB"
+        else:
+            return f"{bytes_value} B"
+
+    def update_disk_status(self):
+        """
+        获取当前磁盘空间状态。
+        :return: 包含磁盘总空间、已使用空间、可用空间和使用率的字典。
+        """
+        disk_usage = psutil.disk_usage('.')
+        self.disk_free = disk_usage.free
+        # status = {
+        #     'total': disk_usage.total,
+        #     'used': disk_usage.used,
+        #     'free': disk_usage.free,
+        #     'percent': disk_usage.percent
+        # }
+        display_text = f"{self.convert_bytes(disk_usage.free)}（{self.convert_bytes(disk_usage.used)}/{self.convert_bytes(disk_usage.total)}）"
+        self.ui.lbl_diskInfo.setText(display_text)
+
     def go_forward(self): # 用于向前
         global direction
         global com_scanning
@@ -176,6 +208,9 @@ class ImgCaptureWidget(QWidget):
         self.img_capture_thread.signal_img1_set.connect(self.update_graphicsview1) ##### todo 自定义信号，接收emit（image）信号，传递image参数，用于更新图形场景
         self.img_capture_thread.signal_img2_set.connect(self.update_graphicsview2) # 用于更新图形场景
         # self.thread_manager.start(self.thread_capture)
+        if self.disk_free < 1024**3: # 用于判断磁盘空间是否小于1GB
+            print('磁盘空间不足')
+            return
         direction = 1
         self.img_capture_thread.savepath = self.savepath
         self.img_capture_thread.startcode = self.startcode

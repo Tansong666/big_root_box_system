@@ -1,18 +1,20 @@
+# 必选参数edge和serving二选一
+# is_Edge=False
+is_Serving=False
+
 # 当前工作目录的output目录设为根目录
 root_path = r'E:\big_root_system'
 
 # concat
+is_concat = True
 data_path =r'data'
 concat_x1 = 2000
 concat_x2 = 2700
 concat_x3 = 3350
 concat_savepath = r'output\concated'
 
-# 必选参数edge和serving二选一
-# is_Edge=False
-is_Serving=False
-
 # seg
+is_seg = True
 seg_runtime_list = ['paddle_inference','onnxruntime','tensorrt','paddle_serving']
 seg_model_list = ['segformer','deeplabv3','hardnet','unet']
 is_slide=True
@@ -27,7 +29,6 @@ seg_savepath = r'output\segmented'
 
 
 #### 后处理
-post_is_Serving=False
 # 图像去噪
 is_denoise = True
 post_inputpath = r'output\test\0510'
@@ -49,6 +50,7 @@ inpaint_weightpath = r'models\inpaint\EUGAN.onnx'
 inpaint_savepath = r'output\inpainted'
 
 # 性状计算
+is_calculate = True
 # caculate_inputpath = inpaint_savepath
 calculate_inputpath = r'output\inpainted'
 calculate_savepath = r'output\calculated'
