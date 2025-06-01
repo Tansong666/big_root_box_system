@@ -13,17 +13,4 @@ threads/batch_process_utils
 models/inpaint/*
 paddle_seg.trt
 
-sub_widgets/img_seg_widget.py
-sub_widgets/img_postprocess_widget.py
-sub_widgets/*v1.py
-sub_widgets/widget_template.py
-
-threads/img_seg*.py
-threads/concat*.py
-threads/precess*.py
-threads/postcess*.py
-
-ui/img_capature_widget_v1*
-ui/img_seg*
-ui/img_postprocess*
-ui/img_analysis*
+# subwidgets/widgets_v1
