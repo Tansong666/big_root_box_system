@@ -6,24 +6,33 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1761</width>
-    <height>926</height>
+    <width>1800</width>
+    <height>950</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Adobe 黑体 Std R</family>
+    <pointsize>14</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <layout class="QVBoxLayout" name="vl_imgShow1">
      <item>
       <layout class="QHBoxLayout" name="hl_imgInfo1" stretch="2,1,6">
        <item>
         <widget class="QLabel" name="lbl_img1">
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">font-family: '微软雅黑';
-font-size: 16px;
-font-weight: bold;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>图片显示：第一张</string>
@@ -48,6 +57,12 @@ font-weight: bold;</string>
        </item>
        <item>
         <widget class="QLabel" name="lbl_saveInfo1">
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>图像保存路径：</string>
          </property>
@@ -76,10 +91,13 @@ font-weight: bold;</string>
       <layout class="QHBoxLayout" name="hl_imginfo2" stretch="2,1,6">
        <item>
         <widget class="QLabel" name="lbl_img2">
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">font-family: '微软雅黑';
-font-size: 16px;
-font-weight: bold;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>图片显示：第二张</string>
@@ -101,6 +119,12 @@ font-weight: bold;</string>
        </item>
        <item>
         <widget class="QLabel" name="lbl_saveInfo2">
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>图像保存路径：</string>
          </property>
@@ -125,6 +149,9 @@ font-weight: bold;</string>
    </item>
    <item>
     <layout class="QVBoxLayout" name="vl_control">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
      <item>
       <layout class="QHBoxLayout" name="hl_serialInfo" stretch="2,2,1,4">
        <item>
@@ -132,9 +159,7 @@ font-weight: bold;</string>
          <item>
           <widget class="QLabel" name="lbl_arduino">
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Arduino串口设置</string>
@@ -149,13 +174,16 @@ font-weight: bold;</string>
              <height>30</height>
             </size>
            </property>
-           <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>14</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
            </property>
-           <property name="currentText">
-            <string>com7</string>
+           <property name="styleSheet">
+            <string notr="true"/>
            </property>
            <item>
             <property name="text">
@@ -206,9 +234,7 @@ font-weight: bold;</string>
          <item>
           <widget class="QLabel" name="lbl_scanner">
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>扫描器串口设置</string>
@@ -223,10 +249,16 @@ font-weight: bold;</string>
              <height>30</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>14</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
+            <string notr="true"/>
            </property>
            <item>
             <property name="text">
@@ -293,21 +325,217 @@ font-weight: bold;</string>
            <height>50</height>
           </size>
          </property>
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="NoBrush">
+              <color alpha="128">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="NoBrush">
+              <color alpha="128">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="NoBrush">
+              <color alpha="128">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
          <property name="font">
           <font>
-           <family>微软雅黑</family>
-           <pointsize>-1</pointsize>
-           <weight>75</weight>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>15</pointsize>
+           <weight>50</weight>
            <italic>false</italic>
-           <bold>true</bold>
+           <bold>false</bold>
           </font>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(0, 85, 255);
-color: rgb(255, 255, 255);
-font-family: '微软雅黑';
-font-size: 16px;
-font-weight: bold;</string>
+color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string>确认串口连接</string>
@@ -326,11 +554,14 @@ font-weight: bold;</string>
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(0, 85, 255);color: white;
-font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
+          <string notr="true">background-color: rgb(0, 85, 255);color: white;</string>
          </property>
          <property name="text">
           <string>前进</string>
@@ -358,10 +589,14 @@ font-weight: bold;</string>
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>后退</string>
@@ -389,12 +624,14 @@ font-weight: bold;</string>
            <height>50</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>15</pointsize>
+          </font>
+         </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(170, 0, 0);
-color: rgb(255, 255, 255);
-font-family: 'Times New Roman';
-font-size: 16px;
-font-weight: bold;</string>
+          <string notr="true">background-color: rgb(170, 0, 0);color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
           <string>停止</string>
@@ -407,6 +644,12 @@ font-weight: bold;</string>
       <layout class="QVBoxLayout" name="vl_logInfo">
        <item>
         <widget class="QLabel" name="lbl_log">
+         <property name="font">
+          <font>
+           <family>Adobe 黑体 Std R</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>当前处理信息</string>
          </property>
@@ -417,19 +660,68 @@ font-weight: bold;</string>
          <property name="minimumSize">
           <size>
            <width>300</width>
-           <height>660</height>
+           <height>400</height>
           </size>
          </property>
         </widget>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="hl_saveInfo_4">
+         <item>
+          <widget class="QCheckBox" name="chk_isProcessImg">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>自动处理图片</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="hSpacer8">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_loadModels">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>加载模型</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="hl_saveInfo">
          <item>
           <widget class="QLabel" name="lbl_saveDir">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>图像保存地址：</string>
@@ -446,6 +738,12 @@ font-weight: bold;</string>
              <width>180</width>
              <height>30</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
            </property>
            <property name="readOnly">
             <bool>false</bool>
@@ -468,12 +766,25 @@ font-weight: bold;</string>
            </property>
           </spacer>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="hl_diskInfo">
          <item>
           <widget class="QLabel" name="lbl_disk">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="mouseTracking">
+            <bool>false</bool>
+           </property>
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>磁盘空间：</string>
@@ -485,10 +796,19 @@ font-weight: bold;</string>
          </item>
          <item>
           <widget class="QLabel" name="lbl_diskInfo">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+             <weight>50</weight>
+             <bold>false</bold>
+            </font>
+           </property>
            <property name="styleSheet">
-            <string notr="true">font-family: 'Times New Roman';
-font-size: 12px;
-font-weight: bold;</string>
+            <string notr="true"/>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
            </property>
            <property name="text">
             <string>100GB/256GB</string>
@@ -498,19 +818,45 @@ font-weight: bold;</string>
            </property>
           </widget>
          </item>
+         <item>
+          <spacer name="hSpacer7_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QHBoxLayout" name="hl_codeInfo">
          <item>
           <widget class="QLabel" name="lbl_missCode">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
-            <string>（重新计算漏拍）开始二维码：</string>
+            <string>重拍开始二维码：</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="cb_missCode"/>
+          <widget class="QComboBox" name="cb_missCode">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="hSpacer6">
@@ -527,16 +873,35 @@ font-weight: bold;</string>
          </item>
          <item>
           <widget class="QLabel" name="lbl_codeInfo">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
-            <string>当前二维码位置</string>
+            <string>当前位置</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spin_nowCode"/>
+          <widget class="QSpinBox" name="spin_nowCode">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="lbl_progress">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>二维码总数</string>
            </property>
@@ -544,6 +909,12 @@ font-weight: bold;</string>
          </item>
          <item>
           <widget class="QSpinBox" name="spin_sumCode">
+           <property name="font">
+            <font>
+             <family>Adobe 黑体 Std R</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="maximum">
             <number>999</number>
            </property>

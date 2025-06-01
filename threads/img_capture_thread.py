@@ -2,6 +2,7 @@ from PyQt5.QtCore import *
 import cv2
 import numpy as np
 import os
+import time
 
 from drivers.camera import grab_image_save
 from signals.global_signals import signals
@@ -20,6 +21,7 @@ class ImgCapture_Thread(QThread):  # 用于扫描 这个类可能用于在一个
         super(ImgCapture_Thread, self).__init__()
         self.savapath = savepath  # 可能用于指定图像保存的路径
         self.startcode = startcode # 可能用于存储图像的编号
+        self.is_process = False
 
     def run(self):  # 重写QThread的run方法，run方法在启动线程（start方法）后会被调用，用于执行线程的任务。
         if os.path.exists(self.savapath) == False:
@@ -71,7 +73,6 @@ class ImgCapture_Thread(QThread):  # 用于扫描 这个类可能用于在一个
                 os.removedirs(self.savapath + '/' + str(scanning_index_now))
                 print('漏拍！！！')
                 break
-            signals.code_scan_signal.emit(int(scanning_index_now)) # 用于发送信号 扫描到的二维码编号
             
             com_arduino.write('7\r\n'.encode())
             # capture_qr_image(0, "qr_code") # 用于调用摄像头拍照 todo
@@ -91,6 +92,5 @@ class ImgCapture_Thread(QThread):  # 用于扫描 这个类可能用于在一个
             self.signal_img2_set.emit(img2_save_path, img2)
 
             com_arduino.write('3\r\n'.encode())
-            # signals.signal_scaner_code.emit(str(scanning_index_now))
-            signals.img_seg_signal.emit(img1_save_path, img2_save_path, img1, img2)
+            # signals.img_process_singal.emit(img1_save_path, img2_save_path, img1, img2)
             continue

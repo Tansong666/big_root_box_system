@@ -13,9 +13,13 @@ from qt_material import apply_stylesheet
 
 from ui.Ui_main_window import Ui_MainWindow
 from sub_widgets.img_capture_widget import ImgCaptureWidget
-from sub_widgets.img_seg_widget import ImgSegWidget
-from sub_widgets.serial_assist_widget import SerialAssistWidget
-from sub_widgets.img_postprocess_widget import ImgPostprocessWidget
+# from sub_widgets.img_seg_widget import ImgSegWidget
+# from sub_widgets.img_postprocess_widget import ImgPostprocessWidget
+from sub_widgets.img_process_widget import ImgProcessWidget
+
+# from sub_widgets.serial_assist_widget import SerialAssistWidget
+
+from signals.global_signals import signals
 
 class MainWindow(QMainWindow):
 
@@ -31,22 +35,28 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         # 创建一个 QWidget（这里使用 QLineEdit 作为示例）
         # min-width: 150px; /* 设置 tab 的最小宽度，可根据需要调整 */
-        # self.ui.tabWidget.tabBar().setStyleSheet("""
-        #     QTabBar::tab {
-        #         font-size: 8pt;
-        #     }
-        # """)
+        self.ui.tabWidget.tabBar().setStyleSheet("""
+            QTabBar::tab {
+                font-size: 8pt;
+            }
+        """)
         self.ui.tabWidget.addTab(ImgCaptureWidget(self), "根系图像采集")
-        self.ui.tabWidget.addTab(ImgSegWidget(self), "根系图像分割")
-        self.ui.tabWidget.addTab(ImgPostprocessWidget(self), "根系图像后处理")
+        # self.ui.tabWidget.addTab(ImgSegWidget(self), "根系图像分割")
+        # self.ui.tabWidget.addTab(ImgPostprocessWidget(self), "根系图像后处理")
+        self.ui.tabWidget.addTab(ImgProcessWidget(self), "根系图像处理")
 
-        self.ui.tabWidget.addTab(SerialAssistWidget(self), "串口助手")
+        # self.ui.tabWidget.addTab(SerialAssistWidget(self), "串口助手")
 
-        self.ui.tabWidget.setCurrentIndex(0)
+        # self.ui.tabWidget.setCurrentIndex(0)
         # self.ui.tabWidget.setCurrentIndex(2)
+
+        signals.tab_change_signal.connect(self.tab_change)
         
         bar = self.statusBar()
         bar.showMessage("请选择功能")
+
+    def tab_change(self, index):
+        self.ui.tabWidget.setCurrentIndex(index)
         
 
 if __name__ == '__main__':

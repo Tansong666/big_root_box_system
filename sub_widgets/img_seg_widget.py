@@ -274,7 +274,7 @@ class ImgSegWidget(QWidget):
         self.update_textBrowser(structured_args)
 
         # self.img_seg_thread.signal_process_complete.connect(self.append_text_to_browser)
-        self.img_seg_thread.start() 
+        self.img_seg_thread.start()
 
 
 

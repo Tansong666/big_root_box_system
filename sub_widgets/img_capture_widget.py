@@ -61,6 +61,7 @@ class ImgCaptureWidget(QWidget):
         self.ui.txt_saveDir.setText(self.savepath) # 用于设置保存路径
 
         self.startcode = self.ui.cb_missCode.currentText() # 用于设置开始扫描位置
+        self.is_process = self.ui.chk_isProcessImg.isChecked()
 
         self.scene = QGraphicsScene() # 用于创建一个图形场景对象
         self.ui.view_grabImg1.setScene(self.scene) # 用于设置图形场景
@@ -75,6 +76,14 @@ class ImgCaptureWidget(QWidget):
         self.ui.txtBrw_log.setTextCursor(cursor) # 用于设置文本光标
         self.ui.txtBrw_log.ensureCursorVisible() # 用于确保文本光标可见
 
+    def update_textBrowser(self, text):
+        # current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
+        # self.ui.txtBrw_log.append(current_time + ' >>' + str(text))
+        self.ui.txtBrw_log.append(str(text))
+        self.ui.txtBrw_log.moveCursor(self.ui.txtBrw_log.textCursor().End)
+        # self.ui.txtBrw_log.repaint()
+        self.ui.txtBrw_log.ensureCursorVisible()
+
     def update_graphicsview1(self, image_path, image): # 用于更新图形场景
         graph_scene = QGraphicsScene() # 用于创建一个图形场景对象
         self.ui.view_grabImg1.setScene(graph_scene) # 用于设置图形场景
@@ -88,7 +97,7 @@ class ImgCaptureWidget(QWidget):
             raise TypeError('image type not supported') # 用于抛出异常
         # 可以使用 QPixmap 对象的各种方法来操作图像，如缩放、剪裁、旋转等。例如，scaled() 方法可以用来缩放图像：
         image = image.scaled(self.ui.view_grabImg1.width() - 3, self.ui.view_grabImg1.height() - 3, 
-                            Qt.KeepAspectRatio) 
+                            Qt.KeepAspectRatio)
         graph_scene.addPixmap(image) 
         graph_scene.update() 
 
@@ -161,6 +170,9 @@ class ImgCaptureWidget(QWidget):
 
     def update_startCode(self): # 用于更新开始位置
         self.startcode = self.ui.cb_missCode.currentIndex()
+    
+    def update_isProcess(self): # 用于更新是否处理图像
+        self.is_process = self.ui.chk_isProcessImg.isChecked()
 
     def choose_savepath(self): # 用于选择图像保存路径
         path = QFileDialog.getExistingDirectory(None, "请选择文件夹路径", ".")  # 用于选择图像保存路径
@@ -187,12 +199,6 @@ class ImgCaptureWidget(QWidget):
         """
         disk_usage = psutil.disk_usage('.')
         self.disk_free = disk_usage.free
-        # status = {
-        #     'total': disk_usage.total,
-        #     'used': disk_usage.used,
-        #     'free': disk_usage.free,
-        #     'percent': disk_usage.percent
-        # }
         display_text = f"{self.convert_bytes(disk_usage.free)}（{self.convert_bytes(disk_usage.used)}/{self.convert_bytes(disk_usage.total)}）"
         self.ui.lbl_diskInfo.setText(display_text)
 
@@ -214,6 +220,7 @@ class ImgCaptureWidget(QWidget):
         direction = 1
         self.img_capture_thread.savepath = self.savepath
         self.img_capture_thread.startcode = self.startcode
+        self.img_capture_thread.is_process = self.is_process
         self.img_capture_thread.start()
 
     def go_back(self): # 用于向后
@@ -226,6 +233,7 @@ class ImgCaptureWidget(QWidget):
         direction = 2
         self.img_capture_thread.savepath = self.savepath
         self.img_capture_thread.startcode = self.startcode
+        self.img_capture_thread.is_process = self.is_process
         self.img_capture_thread.start()
 
     def stop(self): # 用于停止
@@ -237,8 +245,7 @@ class ImgCaptureWidget(QWidget):
         # img2_save_path = "E:\\big_root_system\\data\\0102\\512\\2.png"
         # img1 = cv2.imread(img1_save_path)
         # img2 = cv2.imread(img2_save_path)
-        # # signals.signal_auto_seg.emit(img1, img2, str(512))  # emit 方法不支持关键字参数 
-        # signals.img_seg_signal.emit(img1_save_path, img2_save_path, img1, img2)
+        # signals.img_process_signal.emit(img1_save_path, img2_save_path, img1, img2)
 
     def keyPressEvent(self, event):
         global direction
@@ -254,7 +261,7 @@ class ImgCaptureWidget(QWidget):
         self.ui.btn_back.clicked.connect(self.go_back)  # 用于向后
         self.ui.btn_stop.clicked.connect(self.stop) # 用于停止
         # self.ui.cb_mode.currentIndexChanged.connect(self.on_mode_changed)
-        signals.code_scan_signal.connect(self.update_progressBar)
+        # signals.code_scan_signal.connect(self.update_progressBar)
         self.ui.spin_sumCode.valueChanged.connect(self.update_manual_sumCode)
         self.ui.spin_nowCode.valueChanged.connect(self.update_manual_progressBar) 
         self.ui.cb_missCode.currentIndexChanged.connect(self.update_startCode) 

@@ -1,17 +1,21 @@
 # 必选参数edge和serving二选一
+
+is_process = False
+
 # is_Edge=False
 is_Serving=False
 
 # 当前工作目录的output目录设为根目录
 root_path = r'E:\big_root_system'
-
+data_path =r'data'
+input_path = None
 # concat
 is_concat = True
-data_path =r'data'
 concat_x1 = 2000
 concat_x2 = 2700
 concat_x3 = 3350
-concat_savepath = r'output\concated'
+# concat_savepath = r'output\concated'
+concat_savepath = r'output\test\concated'
 
 # seg
 is_seg = True
@@ -24,14 +28,15 @@ is_resize = True
 resize_scale = 1.0
 # seg_path
 seg_weightpath = r'models\segment\bigbox_segformer'
-seg_imagepath = r'output\concated'
-seg_savepath = r'output\segmented'
+# seg_imagepath = r'output\concated'
+# seg_savepath = r'output\segmented'
+seg_savepath = r'output\test\segmented'
 
 
 #### 后处理
 # 图像去噪
 is_denoise = True
-post_inputpath = r'output\test\0510'
+# post_inputpath = r'output\test\0510'
 is_rsa = False
 dilate_iters = 10
 threshold_area = 1000
@@ -40,20 +45,25 @@ rba_left = 0
 rba_right = 0
 rba_top = 0
 rba_bottom = 0
-denoise_savepath = r'output\denoised'
+# denoise_savepath = r'output\denoised'
+denoise_savepath = r'output\test\denoised'
+
 # 图像修复
 is_inpaint = False
 inpaint_iters = 5
 inpaint_runtime_list = ['onnxruntime','tensorrt','paddle_inference','paddle_serving']
 inpaint_model_list = ['EUGAN']
 inpaint_weightpath = r'models\inpaint\EUGAN.onnx'
-inpaint_savepath = r'output\inpainted'
+# inpaint_savepath = r'output\inpainted'
+inpaint_savepath = r'output\test\inpainted'
 
 # 性状计算
 is_calculate = True
 # caculate_inputpath = inpaint_savepath
-calculate_inputpath = r'output\inpainted'
-calculate_savepath = r'output\calculated'
+# calculate_inputpath = r'output\inpainted'
+# calculate_savepath = r'output\calculated'
+calculate_savepath = r'output\test\calculated'
+
 
 
 

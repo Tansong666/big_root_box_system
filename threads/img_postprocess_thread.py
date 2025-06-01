@@ -12,8 +12,9 @@ class PostProcessThread(QThread):
     # 定义信号
     # process_signal = pyqtSignal([str, str], [str])
     process_signal = pyqtSignal(str)
-    show_seg_img_signal = pyqtSignal(np.ndarray)
-    show_post_img_signal = pyqtSignal(np.ndarray)
+    denosie_signal = pyqtSignal(str, np.ndarray)
+    inpaint_signal = pyqtSignal(str, np.ndarray)
+    calculate_signal = pyqtSignal(str, np.ndarray)
     trait_signal = pyqtSignal(dict)
     # img_info_signal = pyqtSignal([str],[np.ndarray])
 
@@ -23,8 +24,9 @@ class PostProcessThread(QThread):
         self.inpaint_args = None  # 控件参数
         self.calculate_args = None  # 控件参数
         # self.isOn = False
-        self.img = None  # 信号发送参数
-        self.image_path = None  # 信号发送参数
+        self.img = None 
+        self.image_path = None  
+        self.input_path = None  
 
     def denoise(self,img,rsa,dilation,areathreshold,rba,left,right,top,bottom):
         ## 多次中值滤波 5x5
@@ -96,19 +98,51 @@ class PostProcessThread(QThread):
         return output
 
 
-    def img_postprocess(self,img, image_path, 
-                    is_denoise=False, img_path=None, rsa=False,dilation=None, areathreshold=None, rba=False, left=None, right=None, top=None, bottom=None,denoise_save_path=None,
-                    is_inpaint=False, iters=None,weight_path=None,inpaint_save_path=None, 
-                    calculate_save_path=None,Layer_height=None,Layer_width=None):
+    def img_postprocess(self,img, image_path, input_path,
+                    is_denoise=False,  rsa=False,dilation=None, areathreshold=None, rba=False, left=None, right=None, top=None, bottom=None,denoise_savepath=None,
+                    is_inpaint=False, iters=None,weight_path=None,inpaint_savepath=None, 
+                    is_calculate=False, calculate_savepath=None,Layer_height=None,Layer_width=None):
 
         self.process_signal.emit(f'开始进行后处理...')
         # print(f'Processing images...')
-        if img is None:
+        if input_path is None:
+            img_name = os.path.basename(image_path)
+            # self.denosie_signal.emit(img)
+            ## 执行去噪处理
+            if is_denoise:
+                img = self.denoise(img,rsa,dilation,areathreshold,rba,left,right,top,bottom)
+                image_save_path = os.path.join(denoise_savepath, img_name)
+                if not os.path.exists(os.path.dirname(image_save_path)):
+                    os.makedirs(os.path.dirname(image_save_path))
+                cv2.imwrite(image_save_path, img)
+                self.process_signal.emit(f'根系去噪: {image_save_path} saved.')
+                self.denosie_signal.emit(image_save_path,img)
+            ## 执行图像修复
+            if is_inpaint:
+                img = self.inpaint(img, iters, weight_path)
+                image_save_path = os.path.join(inpaint_savepath, img_name)
+                if not os.path.exists(os.path.dirname(image_save_path)):
+                    os.makedirs(os.path.dirname(image_save_path))
+                cv2.imwrite(image_save_path, img)
+                self.process_signal.emit(f'根系修复: {image_save_path} saved.')
+                self.inpaint_signal.emit(image_save_path,img)
+            if is_calculate:
+                calculater = Calculater()
+                show_img = calculater.loadimage(img, image_save_path)
+                traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
+                traits['image_path'] = image_save_path
+                image_save_path = calculater.save_traits(calculate_savepath, img_name)
+                self.calculate_signal.emit(image_save_path,show_img)
+                self.trait_signal.emit(traits)
+                self.process_signal.emit(f'根系特征计算: {image_save_path} saved.')
+
+            # signals.img_info_signal.emit(image_save_path, img)
+        else:
             # 批量处理图片路径中的所有图片
-            for root, dirs, files in os.walk(img_path):
+            for root, dirs, files in os.walk(input_path):
                 # 构造与输入目录结构一致的输出子目录
-                relative_path = os.path.relpath(root, img_path)
-                denoise_subdir = os.path.join(denoise_save_path, relative_path)
+                relative_path = os.path.relpath(root, input_path)
+                denoise_subdir = os.path.join(denoise_savepath, relative_path)
                 # inpaint_subdir = os.path.join(inpaint_save_path, relative_path)
                 
                 for file in files:
@@ -119,7 +153,7 @@ class PostProcessThread(QThread):
                         # 读取图片（假设是灰度图，根据实际情况调整）
                         # img = cv2.imread(img_file, 0)
                         img = cv2.imread(img_file, -1)  # -1表示读取原始图像，不进行转化，包括alpha通道
-                        self.show_seg_img_signal.emit(img)
+                        # self.denosie_signal.emit(img)
                         if img is None:
                             # self.process_signal.emit(f'Warning: 无法读取图片 {img_file}')
                             print(f'Warning: 无法读取图片 {img_file}')
@@ -132,65 +166,34 @@ class PostProcessThread(QThread):
                             image_save_path = os.path.join(denoise_subdir, file)
                             cv2.imwrite(image_save_path, img)
                             self.process_signal.emit(f'根系除杂: <{image_save_path}>saved')
-                            self.show_post_img_signal.emit(img)
+                            self.denosie_signal.emit(image_save_path,img)
                             # 睡眠1秒
                             # time.sleep(1)
                         ## 执行图像修复
                         if is_inpaint:
                             img = self.inpaint(img, iters, weight_path)
                             # 创建输出目录（如果不存在）
-                            inpaint_subdir = os.path.join(inpaint_save_path, relative_path)
+                            inpaint_subdir = os.path.join(inpaint_savepath, relative_path)
                             os.makedirs(inpaint_subdir, exist_ok=True)
                             # 构造输出路径（保持原文件名）
                             image_save_path = os.path.join(inpaint_subdir, file)
                             cv2.imwrite(image_save_path, img)
                             # 发送信号
                             self.process_signal.emit(f'根系修复: <{image_save_path}>saved')
-                            self.show_post_img_signal.emit(img)
+                            self.inpaint_signal.emit(image_save_path,img)
                             # 睡眠1秒
                             # time.sleep(1)
-
-                        calculater = Calculater()
-                        show_img = calculater.loadimage(img, image_save_path)
-                        self.show_post_img_signal.emit(show_img)
-                        traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
-                        traits['image_path'] = image_save_path
-                        self.trait_signal.emit(traits)
-                        calculater.save_traits(calculate_save_path, file)       
-                        # signals.img_info_signal.emit(image_save_path, img)
+                        if is_calculate:
+                            calculater = Calculater()
+                            img = calculater.loadimage(img, image_save_path)
+                            traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
+                            traits['image_path'] = image_save_path
+                            self.trait_signal.emit(traits)
+                            image_save_path = calculater.save_traits(calculate_savepath, file)       
+                            self.calculate_signal.emit(image_save_path,img)
+                            self.process_signal.emit(f'根系特征计算: <{image_save_path}>saved')
+                            # signals.img_info_signal.emit(image_save_path, img)
             self.process_signal.emit(f'根系后处理全部完成.')
-        else:
-            self.img_name = os.path.basename(image_path)
-            self.show_seg_img_signal.emit(img)
-            ## 执行去噪处理
-            if is_denoise:
-                img = self.denoise(img,rsa,dilation,areathreshold,rba,left,right,top,bottom)
-                image_save_path = os.path.join(denoise_save_path, self.img_name)
-                if not os.path.exists(os.path.dirname(image_save_path)):
-                    os.makedirs(os.path.dirname(image_save_path))
-                cv2.imwrite(image_save_path, img)
-                self.process_signal.emit(f'{image_save_path} saved.')
-                self.show_post_img_signal.emit(img)
-            ## 执行图像修复
-            if is_inpaint:
-                img = self.inpaint(img, iters, weight_path)
-                image_save_path = os.path.join(inpaint_save_path, self.img_name)
-                if not os.path.exists(os.path.dirname(image_save_path)):
-                    os.makedirs(os.path.dirname(image_save_path))
-                cv2.imwrite(image_save_path, img)
-                self.process_signal.emit(f'{image_save_path} saved.')
-                self.show_post_img_signal.emit(img)
-
-            calculater = Calculater()
-            show_img = calculater.loadimage(img, image_save_path)
-            self.show_post_img_signal.emit(show_img)
-            traits = calculater.get_traits(Layer_height=Layer_height, Layer_width=Layer_width)
-            traits['image_path'] = image_save_path
-            self.trait_signal.emit(traits)
-            calculater.save_traits(calculate_save_path, self.img_name)
-
-            # signals.img_info_signal.emit(image_save_path, img)
-        
         # return img
 
 
@@ -198,8 +201,9 @@ class PostProcessThread(QThread):
         # self.isOn = True
         # denoise_img = self.img_denoise(self.img, self.code, **self.args)
         # self.img_inpaint(denoise_img, **self.inpaint_args)
-        self.img_postprocess(self.img, self.image_path, **self.denoise_args, **self.inpaint_args, **self.calculate_args)
-
+        self.img_postprocess(self.img, self.image_path,self.input_path,**self.denoise_args, **self.inpaint_args, **self.calculate_args)
+        # signals.tab_change_signal.emit(0)
+        # time.sleep(3)
         # self.isOn = False
 
     # def stop(self):
@@ -214,7 +218,7 @@ class PostProcessThread(QThread):
 if __name__ == '__main__':
     process = PostProcessThread()
     args = {
-        'img_path': r'E:\big_root_system\output\segmented',
+        'input_path': r'E:\big_root_system\output\segmented',
         'rso': True,
         'dilation': 0,
         'areathreshold': 100,

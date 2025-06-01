@@ -39,6 +39,14 @@ class myGraphicsView(QtWidgets.QGraphicsView):
         self.select_item = None
         self.pen = QPen(QColor("red"), 2)
 
+    def clear_image(self):
+        """清除当前视图中的图片"""
+        self.pixmap = None
+        self._item.setPixmap(QPixmap())
+        self._item.update()
+        self.setSceneDims()
+        self.update()
+
     def setPixmap(self, pixmap, fitInView=True):
         if isinstance(pixmap, QPixmap):
             self.pixmap = pixmap

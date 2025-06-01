@@ -227,7 +227,6 @@ class ImgSegThread(QThread):
 
         return finnal_seg_save_path, mask
         
-        
 
     def run(self):
         self._is_running = True
