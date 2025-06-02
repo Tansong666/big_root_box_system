@@ -7,12 +7,9 @@ data/*
 output/*
 models/segment/*
 tools/cmd.txt
-
-
 threads/batch_process_utils
 models/inpaint/*
 paddle_seg.trt
-
 subwidgets/widgets_v1
 threads/threads_v1
 ui/ui_v1
