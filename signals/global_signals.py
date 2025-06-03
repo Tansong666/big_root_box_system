@@ -6,11 +6,11 @@ class GlobalSignals(QObject):
     # img_preprocess_signal = pyqtSignal(str, str, np.ndarray, np.ndarray) # 用于自动拼接+分割图像信号
     # img_postprocess_signal = pyqtSignal(str, np.ndarray)
     img_process_singal = pyqtSignal(str, str, np.ndarray, np.ndarray)
+    img_process_path_signal = pyqtSignal(str, str)
 
     tab_change_signal = pyqtSignal(int) # 用于切换tab的信号
     
-    # img_seg_signal = pyqtSignal(str, str, np.ndarray, np.ndarray)
-    # code_scan_signal = pyqtSignal(str)
+    code_signal = pyqtSignal(str)
 
 # 创建全局信号实例
 signals = GlobalSignals()

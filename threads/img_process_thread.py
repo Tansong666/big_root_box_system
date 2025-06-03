@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal,QThreadPool
 import os
 import cv2
 import numpy as np
@@ -61,8 +61,8 @@ class ImgProcessThread(QThread):
         # part7 = img2[0:sum_rows, x2:x3]
         # part8 = img2[0:sum_rows, x3:sum_cols]
         final_matrix = np.zeros((sum_rows, sum_cols, 3), np.uint8)
-        # final_matrix = np.memmap('temp_concat.dat', dtype=np.uint8, mode='w+', 
-                            # shape=(sum_rows, sum_cols, 3))  # 优化后：直接使用视图操作
+        # final_matrix = np.memmap('temp_concat.dat', dtype=np.uint8, mode='w+',
+        #                     shape=(sum_rows, sum_cols, 3))  # 优化后：直接使用视图操作
         # # 将需要的部分拼接起来
         final_matrix[0:sum_rows, 0:x1] = img2[0:sum_rows, 0:x1]  #part5
         final_matrix[0:sum_rows, x1:x2] = img1[0:sum_rows, x1:x2] # part2
@@ -211,62 +211,66 @@ class ImgProcessThread(QThread):
                         is_inpaint=False,inpaint_savepath=None,iters=None,weight_path=None, 
                         is_calculate=False, calculate_savepath=None,Layer_height=None,Layer_width=None):
         self.process_signal.emit(f'开始进行自动处理...')
-        img_name = str(img1_path.split("\\")[-2]) + ".png"
+        img_name = str(img1_path.split("/")[-2]) + ".png"
         image_save_path = None
         ## 执行图像拼接
         if is_concat:
             start_time = time.time()
             img = self.concat(img1,img2,img1_path,img2_path,x1,x2,x3)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
             # 保存地址
             image_save_path = os.path.join(concat_savepath, img_name)
             if not os.path.exists(os.path.dirname(image_save_path)):
                 os.makedirs(os.path.dirname(image_save_path))
             # 保存图像
-            cv2.imwrite(image_save_path, img)
+            # cv2.imwrite(image_save_path, img)
+            QThreadPool.globalInstance().start(ImageSaveTask(image_save_path, img))
+            end_time = time.time()
+            elapsed_time = end_time - start_time
             self.concat_signal.emit(image_save_path,img)
             self.process_signal.emit(f"图像拼接完成: {str(img.shape)}\n耗时: {elapsed_time:.2f}秒\n保存地址:{image_save_path}")
         ## 执行图像分割
         if is_seg: 
             start_time = time.time()
             img = self.seg(img,image_save_path,is_slide,slide_size,slide_stride,is_resize,resize_scale)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
             # 保存地址
             image_save_path = os.path.join(seg_savepath, img_name)
             if not os.path.exists(os.path.dirname(image_save_path)):
                 os.makedirs(os.path.dirname(image_save_path))
             # 保存图像
-            cv2.imwrite(image_save_path, img)
+            # cv2.imwrite(image_save_path, img)
+            QThreadPool.globalInstance().start(ImageSaveTask(image_save_path, img))
+            end_time = time.time()
+            elapsed_time = end_time - start_time
             self.seg_signal.emit(image_save_path, img)
             self.process_signal.emit(f"图像分割成功: {str(img.shape)}\n耗时: {elapsed_time:.2f}秒\n保存地址:{image_save_path}")
         ## 执行去噪处理
         if is_denoise:
             start_time = time.time()
             img = self.denoise(img,rsa,dilation,areathreshold,rba,left,right,top,bottom)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
             # 保存地址
             image_save_path = os.path.join(denoise_savepath, img_name)
             if not os.path.exists(os.path.dirname(image_save_path)):
                 os.makedirs(os.path.dirname(image_save_path))
             # 保存图像
-            cv2.imwrite(image_save_path, img)
+            # cv2.imwrite(image_save_path, img)
+            QThreadPool.globalInstance().start(ImageSaveTask(image_save_path, img))
+            end_time = time.time()
+            elapsed_time = end_time - start_time
             self.denosie_signal.emit(image_save_path,img)
             self.process_signal.emit(f"图像去噪成功: {str(img.shape)}\n耗时: {elapsed_time:.2f}秒\n保存地址:{image_save_path}")
         ## 执行图像修复
         if is_inpaint:
             start_time = time.time()
             img = self.inpaint(img, iters, weight_path)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
             # 保存地址
             image_save_path = os.path.join(inpaint_savepath, img_name)
             if not os.path.exists(os.path.dirname(image_save_path)):
                 os.makedirs(os.path.dirname(image_save_path))
             # 保存图像
-            cv2.imwrite(image_save_path, img)
+            # cv2.imwrite(image_save_path, img)
+            QThreadPool.globalInstance().start(ImageSaveTask(image_save_path, img))
+            end_time = time.time()
+            elapsed_time = end_time - start_time
             self.inpaint_signal.emit(image_save_path,img)
             self.process_signal.emit(f"图像修复成功: {str(img.shape)}\n耗时: {elapsed_time:.2f}秒\n保存地址:{image_save_path}")
         ## 执行特征计算

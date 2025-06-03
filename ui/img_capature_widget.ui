@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1800</width>
-    <height>950</height>
+    <width>1700</width>
+    <height>900</height>
    </rect>
   </property>
   <property name="font">
@@ -20,6 +20,18 @@
    <string>Form</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <layout class="QVBoxLayout" name="vl_imgShow1">
      <item>
@@ -29,6 +41,7 @@
          <property name="font">
           <font>
            <family>Adobe 黑体 Std R</family>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -94,6 +107,7 @@
          <property name="font">
           <font>
            <family>Adobe 黑体 Std R</family>
+           <pointsize>14</pointsize>
           </font>
          </property>
          <property name="styleSheet">
@@ -187,7 +201,7 @@
            </property>
            <item>
             <property name="text">
-             <string>com7</string>
+             <string>/dev/ttyACM0</string>
             </property>
            </item>
            <item>
@@ -208,21 +222,6 @@
            <item>
             <property name="text">
              <string>com4</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com5</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com6</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com8</string>
             </property>
            </item>
           </widget>
@@ -262,7 +261,17 @@
            </property>
            <item>
             <property name="text">
-             <string>com7</string>
+             <string>/dev/ttyUSB0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>/dev/ttyUSB1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>/dev/ttyUSB2</string>
             </property>
            </item>
            <item>
@@ -278,26 +287,6 @@
            <item>
             <property name="text">
              <string>com3</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com4</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com5</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com6</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>com8</string>
             </property>
            </item>
           </widget>
@@ -735,7 +724,7 @@ color: rgb(255, 255, 255);</string>
           <widget class="QLineEdit" name="txt_saveDir">
            <property name="minimumSize">
             <size>
-             <width>180</width>
+             <width>250</width>
              <height>30</height>
             </size>
            </property>

@@ -5,22 +5,20 @@ import sys
 import time
 import serial as ser
 import numpy as np
-import os
-import cv2
 import psutil
-# 将项目根目录添加到 sys.path
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, project_root)
+# # 将项目根目录添加到 sys.path
+# project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.insert(0, project_root)
 
 from ui.Ui_img_capature_widget import Ui_ImgCaptureWidget
 from threads.img_capture_thread import ImgCapture_Thread
 from signals.global_signals import signals
+from signals import global_vars
 
-
-# 声明全局变量
-com_arduino = None
-com_scanning = None
-direction = 0
+# # 声明全局变量
+# com_arduino = None
+# com_scanning = None
+# direction = 0
 
 class EmittingStr(QObject):
     textWritten = pyqtSignal(str)  # 定义一个发送str的信号
@@ -46,28 +44,31 @@ class ImgCaptureWidget(QWidget):
         sys.stdin = EmittingStr(textWritten=self.outputWritten)  
     
     def init_data(self): # 用于初始化控件数据
-        # self.current_img_info = {'image_path': None, 'img': None} # 用于存储当前图像信息
+        # 初始化重拍开始二维码
         self.ui.cb_missCode.addItem("None")
-        self.ui.cb_missCode.addItem("461")
-        self.ui.cb_missCode.setCurrentIndex(0) # 用于设置缺码模式
+        self.ui.cb_missCode.addItem("451")
+        self.ui.cb_missCode.addItem("814")
+        self.ui.cb_missCode.setCurrentIndex(0)
+        self.startcode = self.ui.cb_missCode.currentText() # 用于设置开始扫描位置
+        # 初始化二维码位置进度条
         self.ui.spin_nowCode.setValue(0) # 用于设置当前扫描位置
         self.ui.spin_sumCode.setValue(810) # 用于设置总扫描位置
+        self.ui.spin_nowCode.setMaximum(self.ui.spin_sumCode.value())
         self.ui.prg_grab.setValue(self.ui.spin_nowCode.value()) # 用于设置进度条的值
         self.ui.prg_grab.setMaximum(self.ui.spin_sumCode.value()) # 用于设置进度条的最大值
-
+        # 初始化图像保存路径
         t = time.gmtime()
         t_md = time.strftime("%m%d", t)
-        self.savepath = "/home/ts/Root_data/Data" + t_md
+        self.savepath = "/home/ts/Documents/RootData/Date" + t_md + "_right"
         self.ui.txt_saveDir.setText(self.savepath) # 用于设置保存路径
-
-        self.startcode = self.ui.cb_missCode.currentText() # 用于设置开始扫描位置
+        # 初始化是否自动处理图像
         self.is_process = self.ui.chk_isProcessImg.isChecked()
-
-        self.scene = QGraphicsScene() # 用于创建一个图形场景对象
-        self.ui.view_grabImg1.setScene(self.scene) # 用于设置图形场景
-        self.ui.view_grabImg1.show() # 用于显示图形场景
-
-        self.update_disk_status() # 用于更新磁盘状态
+        # 初始化场景视图
+        # self.scene = QGraphicsScene()
+        # self.ui.view_grabImg1.setScene(self.scene)
+        # self.ui.view_grabImg1.show()
+        # 更新磁盘状态
+        self.update_disk_status()
 
     def outputWritten(self, text): # 用于将输出重定向到textBrowser中
         cursor = self.ui.txtBrw_log.textCursor() # 用于获取文本光标
@@ -99,13 +100,8 @@ class ImgCaptureWidget(QWidget):
         image = image.scaled(self.ui.view_grabImg1.width() - 3, self.ui.view_grabImg1.height() - 3, 
                             Qt.KeepAspectRatio)
         graph_scene.addPixmap(image) 
-        graph_scene.update() 
-
-        self.ui.lbl_saveInfo1.setText(image_path) 
-
-        # self.current_img_info['image_path'] = image_path 
-        # self.current_img_info['img'] = image
-        # signals.img_seg_signal.emit(image_path, image)
+        graph_scene.update()
+        self.ui.lbl_saveInfo1.setText(image_path)
 
 
     def update_graphicsview2(self, image_path, image):   # 用于更新图形场景
@@ -123,44 +119,15 @@ class ImgCaptureWidget(QWidget):
                             Qt.KeepAspectRatio)
         graph_scene.addPixmap(image)
         graph_scene.update()
-
         self.ui.lbl_saveInfo2.setText(image_path)
-
-        # self.current_img_info['image_path'] = image_path
-        # self.current_img_info['img'] = image
-        # signals.img_info_signal.emit(image_path, image)
-        
-
-
-    def serial_isopen(self): # 用于打开串口
-        global com_arduino 
-        global com_scanning  
-        comboBox_arduino = self.ui.cb_arduino.currentText() # 用于获取串口号
-        try:
-            com_arduino = ser.Serial(comboBox_arduino, 9600, timeout=0.5) # 用于打开串口01
-            if com_arduino.isOpen():
-                print('arduino串口打开成功')
-            else:
-                print('arduino串口打开失败')
-        except:
-            print('arduino串口打开失败')
-
-        comboBox_scan = self.ui.cb_scanner.currentText()
-        try:
-            com_scanning = ser.Serial(comboBox_scan, 115200, timeout=0.5)
-            if com_scanning.isOpen():
-                print('二维码串口打开成功')
-            else:
-                print('二维码串口打开失败')
-        except:
-            print('二维码串口打开失败')
 
     def update_manual_sumCode(self): # 用于更新进度条
         self.ui.prg_grab.setMaximum(self.ui.spin_sumCode.value()) # 用于设置进度条的最大值
+        self.ui.spin_nowCode.setMaximum(self.ui.spin_sumCode.value())
 
     def update_progressBar(self, value): # 用于更新进度条
-        self.ui.spin_nowCode.setValue(value) # 用于设置进度条的值
-        self.ui.prg_grab.setValue(value)
+        self.ui.spin_nowCode.setValue(int(value)) # 用于设置进度条的值
+        self.ui.prg_grab.setValue(int(value))
     def update_manual_progressBar(self): # 用于更新进度条
         self.ui.prg_grab.setValue(self.ui.spin_nowCode.value())
 
@@ -169,7 +136,7 @@ class ImgCaptureWidget(QWidget):
         print('The filedir path is'+ self.savepath)
 
     def update_startCode(self): # 用于更新开始位置
-        self.startcode = self.ui.cb_missCode.currentIndex()
+        self.startcode = self.ui.cb_missCode.currentText()
     
     def update_isProcess(self): # 用于更新是否处理图像
         self.is_process = self.ui.chk_isProcessImg.isChecked()
@@ -202,55 +169,76 @@ class ImgCaptureWidget(QWidget):
         display_text = f"{self.convert_bytes(disk_usage.free)}（{self.convert_bytes(disk_usage.used)}/{self.convert_bytes(disk_usage.total)}）"
         self.ui.lbl_diskInfo.setText(display_text)
 
-    def go_forward(self): # 用于向前
-        global direction
-        global com_scanning
+    def serial_isopen(self): # 用于打开串口
+        comboBox_arduino = self.ui.cb_arduino.currentText() # 用于获取串口号
         try:
-            com_scanning.flushInput()  # 用于清空串口缓冲区
+            global_vars.com_arduino = ser.Serial(comboBox_arduino, 9600, timeout=0.5) # 用于打开串口01
+            if global_vars.com_arduino.isOpen():
+                print('arduino串口打开成功')
+            else:
+                print('arduino串口打开失败')
+        except:
+            print('arduino串口打开失败')
+
+        comboBox_scan = self.ui.cb_scanner.currentText()
+        try:
+            global_vars.com_scanning = ser.Serial(comboBox_scan, 115200, timeout=0.5)
+            if global_vars.com_scanning.isOpen():
+                print('二维码串口打开成功')
+            else:
+                print('二维码串口打开失败')
+        except:
+            print('二维码串口打开失败')
+
+    def go_forward(self): # 用于向前
+        try:
+            global_vars.com_scanning.flushInput()  # 用于清空串口缓冲区
         except AttributeError:
             print(f"扫码器串口未打开---{AttributeError}:'NoneType' object has no attribute 'flushInput'")
             return
+        if self.disk_free < 50 * 1024**3: # 用于判断磁盘空间是否小于50GB
+            print('磁盘空间不足')
+            # return
         
         self.img_capture_thread.signal_img1_set.connect(self.update_graphicsview1) ##### todo 自定义信号，接收emit（image）信号，传递image参数，用于更新图形场景
         self.img_capture_thread.signal_img2_set.connect(self.update_graphicsview2) # 用于更新图形场景
         # self.thread_manager.start(self.thread_capture)
-        if self.disk_free < 1024**3: # 用于判断磁盘空间是否小于1GB
-            print('磁盘空间不足')
-            return
-        direction = 1
+        global_vars.direction = 1
         self.img_capture_thread.savepath = self.savepath
         self.img_capture_thread.startcode = self.startcode
         self.img_capture_thread.is_process = self.is_process
+        print(self.startcode)
+        print(self.is_process)
         self.img_capture_thread.start()
 
     def go_back(self): # 用于向后
-        global direction
-        global com_scanning
-        com_scanning.flushInput()
+        global_vars.com_scanning.flushInput()
+        if self.disk_free < 50 * 1024**3: # 用于判断磁盘空间是否小于50GB
+            print('磁盘空间不足')
+            # return
         self.img_capture_thread.signal_img1_set.connect(self.update_graphicsview1)
         self.img_capture_thread.signal_img2_set.connect(self.update_graphicsview2)
         # self.thread_manager.start(self.thread_capture)
-        direction = 2
+        global_vars.direction = 2
         self.img_capture_thread.savepath = self.savepath
         self.img_capture_thread.startcode = self.startcode
         self.img_capture_thread.is_process = self.is_process
         self.img_capture_thread.start()
 
     def stop(self): # 用于停止
-        global direction
-        # self.thread_manager.start(self.thread_capture)
-        direction = 3
+        global_vars.direction = 3
         print('停止扫描')
-        # img1_save_path = "E:\\big_root_system\\data\\0102\\512\\1.png"
-        # img2_save_path = "E:\\big_root_system\\data\\0102\\512\\2.png"
-        # img1 = cv2.imread(img1_save_path)
-        # img2 = cv2.imread(img2_save_path)
-        # signals.img_process_signal.emit(img1_save_path, img2_save_path, img1, img2)
+        if self.is_process is True:
+            img1_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/1.png"
+            img2_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/2.png"
+            # img1 = cv2.imread(img1_save_path)
+            # img2 = cv2.imread(img2_save_path)
+            # signals.img_process_signal.emit(img1_save_path, img2_save_path, img1, img2)
+            signals.img_process_path_signal.emit(img1_save_path,img2_save_path)
 
     def keyPressEvent(self, event):
-        global direction
         if event.key() == Qt.Key_Escape:
-            direction = 3
+            global_vars.direction = 3
             print('停止扫描')
 
     def init_ui(self):
@@ -264,7 +252,10 @@ class ImgCaptureWidget(QWidget):
         # signals.code_scan_signal.connect(self.update_progressBar)
         self.ui.spin_sumCode.valueChanged.connect(self.update_manual_sumCode)
         self.ui.spin_nowCode.valueChanged.connect(self.update_manual_progressBar) 
-        self.ui.cb_missCode.currentIndexChanged.connect(self.update_startCode) 
+        self.ui.cb_missCode.currentIndexChanged.connect(self.update_startCode)
+        self.ui.chk_isProcessImg.stateChanged.connect(self.update_isProcess)
+
+        signals.code_signal.connect(self.update_progressBar)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -1,16 +1,14 @@
 # 系统模块
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 import sys
 import os
 import time
 import cv2
-import numpy as np
 
 # 将项目根目录添加到 sys.path
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, project_root)
+# project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.insert(0, project_root)
 
 # 自定义模块
 from ui.Ui_img_process_widget import Ui_ImgProcessWidget
@@ -363,15 +361,17 @@ class ImgProcessWidget(QWidget):
         self.load_model_thread = ModelLoadThread(model_path=self.ui.txt_segWeightDir.text())
         # self.load_model_thread.model_path = self.ui.txt_segWeightDir.text()
         self.load_model_thread.device = 'gpu'
-        self.load_model_thread.use_trt = True
-        self.load_model_thread.use_paddle_trt = False
+        if self.ui.cb_segRunOpt.currentText() == 'tensorrt':
+            self.load_model_thread.use_trt = True
+        if self.ui.cb_segRunOpt.currentText() == 'paddle_tensorrt':
+            self.load_model_thread.use_paddle_trt = True
         # self.load_model_thread = ModelLoadThread(model_path, device, use_trt, use_paddle_trt)
         self.load_model_thread.model_loaded.connect(self.on_model_loaded)
         self.load_model_thread.load_error.connect(self.on_load_error)
         # self.load_model_thread.record.connect(self.record)  # 连接信号和槽函数，用于更新日志窗口
         self.load_model_thread.start()
 
-    def auto_process_thread(self,image_path1,image_path2,img1,img2):
+    def auto_process_thread(self,image_path1,image_path2,img1=None,img2=None):
         signals.tab_change_signal.emit(1)
         self.clear_views()
 
@@ -622,7 +622,8 @@ class ImgProcessWidget(QWidget):
         self.ui.btn_clearLog.clicked.connect(self.clear_logs)
         # 图像处理全流程
         self.ui.btn_loadSegModel.clicked.connect(self.load_model)
-        signals.img_process_singal.connect(self.auto_process_thread)
+        # signals.img_process_signal.connect(self.auto_process_thread)
+        signals.img_process_path_signal.connect(self.auto_process_thread)
 
 
 if __name__ == "__main__":

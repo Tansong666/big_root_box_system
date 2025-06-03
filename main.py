@@ -29,6 +29,9 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         # 初始化内容
         self.ui.setupUi(self)
+        self.setWindowTitle("根系系统图像分析系统")
+        # self.setWindowIcon(QIcon("resources/root_icon.png"))
+        # self.resize(1000, 700)
         # 初始化ui
         self.init_ui()
 
@@ -48,7 +51,6 @@ class MainWindow(QMainWindow):
         # self.ui.tabWidget.addTab(SerialAssistWidget(self), "串口助手")
 
         # self.ui.tabWidget.setCurrentIndex(0)
-        # self.ui.tabWidget.setCurrentIndex(2)
 
         signals.tab_change_signal.connect(self.tab_change)
         
