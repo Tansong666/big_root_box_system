@@ -166,7 +166,7 @@ class ImgProcessThread(QThread):
         return img
 
 
-    def inpaint(self, img, iters=None,weight_path='EUGAN.onnx'):
+    def inpaint(self, img, iters=None,weight_path='EUGAN.onnx',is_tensorrt=False):
         if iters == 0:
             return img
         # 找到roi
@@ -178,11 +178,26 @@ class ImgProcessThread(QThread):
         roi = cv2.threshold(roi, 127, 1, cv2.THRESH_BINARY)[1]
         roi.resize((1, 1, 640, 384))
         roi = roi.astype(np.float32)
+        if is_tensorrt:
+            import fastdeploy as fd
+            from fastdeploy import ModelFormat
+            option = fd.RuntimeOption()
+            option.set_model_path(r"E:\big_root_system\models\inpaint\EUGAN.onnx", model_format=ModelFormat.ONNX)
+            # **** GPU 配置 ***
+            option.use_gpu(0)
+            option.use_trt_backend()
+            # option.set_trt_cache_file('EUGAN.trt')
+            option.trt_option.serialize_file = 'EUGAN.trt'
+            print("tensorrt加载成功")
 
-        onnxmodel = onnxruntime.InferenceSession(weight_path)
-
-        for i in range(iters):
-            roi = onnxmodel.run(None, {'input': roi})[0]
+            # 初始化构造runtime
+            runtime = fd.Runtime(option)
+            for i in range(iters):
+                roi = runtime.infer({'input': roi})[0]
+        else:
+            onnxmodel = onnxruntime.InferenceSession(weight_path)
+            for i in range(iters):
+                roi = onnxmodel.run(None, {'input': roi})[0]
         roi = roi.squeeze().copy()
         roi = cv2.resize(roi, (x_max - x_min, y_max - y_min))
         roi = cv2.threshold(roi, 0.75, 255, cv2.THRESH_BINARY)[1].astype(np.uint8)
@@ -211,7 +226,8 @@ class ImgProcessThread(QThread):
                         is_inpaint=False,inpaint_savepath=None,iters=None,weight_path=None, 
                         is_calculate=False, calculate_savepath=None,Layer_height=None,Layer_width=None):
         self.process_signal.emit(f'开始进行自动处理...')
-        img_name = str(img1_path.split("/")[-2]) + ".png"
+        # img_name = str(img1_path.split("/")[-2]) + ".png"  # linux
+        img_name = str(img1_path.split("\\")[-2]) + ".png"  # windows
         image_save_path = None
         ## 执行图像拼接
         if is_concat:

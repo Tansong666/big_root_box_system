@@ -22,15 +22,16 @@ is_seg = True
 seg_runtime_list = ['paddle_inference','onnxruntime','tensorrt','paddle_serving']
 seg_model_list = ['segformer','deeplabv3','hardnet','unet']
 is_slide=True
-crop_size = 1024
-stride = 1024
+crop_size = 768
+stride = 768
 is_resize = True
 resize_scale = 1.0
 # seg_path
-seg_weightpath = r'models\segment\bigbox_segformer'
+# seg_weightpath = r'models\segment\bigbox_segformer'
+seg_weightpath = r'models\segment\pp_liteseg_stdc1-paddle'
 # seg_imagepath = r'output\concated'
 # seg_savepath = r'output\segmented'
-seg_savepath = r'output\test\segmented'
+seg_savepath = r'output\test\segmented\ppliteseg1'
 
 
 #### 后处理
@@ -49,7 +50,7 @@ rba_bottom = 0
 denoise_savepath = r'output\test\denoised'
 
 # 图像修复
-is_inpaint = False
+is_inpaint = True
 inpaint_iters = 5
 inpaint_runtime_list = ['onnxruntime','tensorrt','paddle_inference','paddle_serving']
 inpaint_model_list = ['EUGAN']
@@ -58,7 +59,7 @@ inpaint_weightpath = r'models\inpaint\EUGAN.onnx'
 inpaint_savepath = r'output\test\inpainted'
 
 # 性状计算
-is_calculate = True
+is_calculate = False
 # caculate_inputpath = inpaint_savepath
 # calculate_inputpath = r'output\inpainted'
 # calculate_savepath = r'output\calculated'

@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # apply_stylesheet(app, theme='dark_lightgreen.xml')
     
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())  
 
 #     ['dark_amber.xml',
 #  'dark_blue.xml',

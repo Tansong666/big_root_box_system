@@ -47,7 +47,6 @@ class ImgCaptureWidget(QWidget):
         # 初始化重拍开始二维码
         self.ui.cb_missCode.addItem("None")
         self.ui.cb_missCode.addItem("451")
-        self.ui.cb_missCode.addItem("814")
         self.ui.cb_missCode.setCurrentIndex(0)
         self.startcode = self.ui.cb_missCode.currentText() # 用于设置开始扫描位置
         # 初始化二维码位置进度条
@@ -228,13 +227,20 @@ class ImgCaptureWidget(QWidget):
     def stop(self): # 用于停止
         global_vars.direction = 3
         print('停止扫描')
+
+    def test(self): # 用于测试
         if self.is_process is True:
-            img1_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/1.png"
-            img2_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/2.png"
+            print('开始处理根系测试图像...')
+            # img1_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/1.png"  # linux下路径
+            # img2_save_path = "/home/ts/Documents/RootBoxSystem/RootBoxSystem_v1/data/root_data_demo/ori_captured/0510/171/2.png"
+            img1_save_path = r"E:\big_root_system\data\171\1.png"  # windows下路径
+            img2_save_path = r"E:\big_root_system\data\171\2.png"
             # img1 = cv2.imread(img1_save_path)
             # img2 = cv2.imread(img2_save_path)
             # signals.img_process_signal.emit(img1_save_path, img2_save_path, img1, img2)
             signals.img_process_path_signal.emit(img1_save_path,img2_save_path)
+        else:
+            print('请勾选自动处理图像选项进行图像处理测试')
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
@@ -248,6 +254,7 @@ class ImgCaptureWidget(QWidget):
         self.ui.btn_forward.clicked.connect(self.go_forward) # 用于向前
         self.ui.btn_back.clicked.connect(self.go_back)  # 用于向后
         self.ui.btn_stop.clicked.connect(self.stop) # 用于停止
+        self.ui.btn_test.clicked.connect(self.test) # 用于测试
         # self.ui.cb_mode.currentIndexChanged.connect(self.on_mode_changed)
         # signals.code_scan_signal.connect(self.update_progressBar)
         self.ui.spin_sumCode.valueChanged.connect(self.update_manual_sumCode)
