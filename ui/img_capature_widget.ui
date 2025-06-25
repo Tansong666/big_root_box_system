@@ -218,22 +218,27 @@
            </item>
            <item>
             <property name="text">
-             <string>com1</string>
+             <string>/dev/ttyUSB0</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>com2</string>
+             <string>/dev/ttyUSB1</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>com3</string>
+             <string>/dev/ttyUSB2</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>com4</string>
+             <string>/dev/ttyUSB3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>/dev/ttyUSB4</string>
             </property>
            </item>
           </widget>
@@ -288,17 +293,17 @@
            </item>
            <item>
             <property name="text">
-             <string>com1</string>
+             <string>/dev/ttyUSB3</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>com2</string>
+             <string>/dev/ttyUSB4</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>com3</string>
+             <string>/dev/ttyUSB5</string>
             </property>
            </item>
           </widget>
