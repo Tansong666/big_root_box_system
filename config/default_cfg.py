@@ -1,7 +1,10 @@
-# 必选参数edge和serving二选一
-
+# import time
+# t = time.gmtime()
+# t_md = time.strftime("%m%d", t)
+# date = f"Date{t_md}_right"
 is_process = False
 
+# 必选参数edge和serving二选一
 # is_Edge=False
 is_Serving=False
 
@@ -20,10 +23,10 @@ concat_savepath = r'output\test\concated'
 # seg
 is_seg = True
 seg_runtime_list = ['paddle_inference','onnxruntime','tensorrt','paddle_serving']
-seg_model_list = ['segformer','deeplabv3','hardnet','unet']
+seg_model_list = ['segformer','deeplabv3','hardnet','unet','pp_liteseg']
 is_slide=True
-crop_size = 768
-stride = 768
+crop_size = [1024, 1024]
+stride = [1024, 1024]
 is_resize = True
 resize_scale = 1.0
 # seg_path
@@ -32,7 +35,6 @@ seg_weightpath = r'models\segment\pp_liteseg_stdc1-paddle'
 # seg_imagepath = r'output\concated'
 # seg_savepath = r'output\segmented'
 seg_savepath = r'output\test\segmented\ppliteseg1'
-
 
 #### 后处理
 # 图像去噪
@@ -50,7 +52,7 @@ rba_bottom = 0
 denoise_savepath = r'output\test\denoised'
 
 # 图像修复
-is_inpaint = True
+is_inpaint = False
 inpaint_iters = 5
 inpaint_runtime_list = ['onnxruntime','tensorrt','paddle_inference','paddle_serving']
 inpaint_model_list = ['EUGAN']

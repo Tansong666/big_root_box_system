@@ -397,8 +397,8 @@ class ImgProcessWidget(QWidget):
         seg_args['is_seg'] = self.ui.chk_isSeg.isChecked()
         seg_args['seg_savepath'] = self.ui.txt_segSaveDir.text()
         seg_args['is_slide'] = self.ui.chk_isSlide.isChecked()
-        seg_args['slide_size'] = [self.ui.spin_cropSize.value(), self.ui.spin_cropSize.value()]
-        seg_args['slide_stride'] = [self.ui.spin_stride.value(), self.ui.spin_stride.value()]
+        seg_args['slide_size'] = [self.ui.spin_cropSizeW.value(), self.ui.spin_cropSizeH.value()]
+        seg_args['slide_stride'] = [self.ui.spin_strideW.value(), self.ui.spin_strideH.value()]
         seg_args['is_resize'] = self.ui.chk_isResize.isChecked()
         seg_args['resize_scale'] = self.ui.dspin_scale.value()
         if seg_args['seg_savepath'] == '':
@@ -506,8 +506,10 @@ class ImgProcessWidget(QWidget):
         self.ui.txt_segWeightDir.setText(os.path.join(cfg.root_path, cfg.seg_weightpath))
         self.ui.txt_segSaveDir.setText(os.path.join(cfg.root_path, cfg.seg_savepath))
         self.ui.chk_isSlide.setChecked(cfg.is_slide)
-        self.ui.spin_cropSize.setValue(cfg.crop_size)
-        self.ui.spin_stride.setValue(cfg.stride)
+        self.ui.spin_cropSizeW.setValue(cfg.crop_size[0])
+        self.ui.spin_cropSizeH.setValue(cfg.crop_size[1])
+        self.ui.spin_strideW.setValue(cfg.stride[0])
+        self.ui.spin_strideH.setValue(cfg.stride[1])
         self.ui.chk_isResize.setChecked(cfg.is_resize)
         self.ui.dspin_scale.setValue(cfg.resize_scale)
         

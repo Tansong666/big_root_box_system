@@ -88,9 +88,11 @@ class ImgProcessThread(QThread):
         if concat_matrix is None:
             concat_matrix = cv2.imread(concat_path,-1)
         if is_slide:
+            # print(slide_size,slide_stride)
             h, w = concat_matrix.shape[:2]
-            window_h, window_w = slide_size
-            stride_h, stride_w = slide_stride
+            window_w, window_h = slide_size
+            stride_w, stride_h = slide_stride
+            # print(h,w,window_h,window_w,stride_h,stride_w)
             result_label_map = np.zeros((h, w), dtype=np.uint8)
             # 内存映射优化
             # result_label_map = np.memmap('temp_seg.dat', dtype=np.uint8, mode='w+', shape=(h, w))
