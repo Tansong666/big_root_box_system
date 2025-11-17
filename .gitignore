@@ -14,7 +14,7 @@ paddle_seg.trt
 sub_widgets\widgets_v1
 threads\threads_v1
 ui/ui_v1
-ui/*.ui
+ui/*widget.ui
 README_v1.md
 trt_cache
 environment_before.yaml
