@@ -5,9 +5,6 @@ import numpy as np
 import time
 import onnxruntime
 
-# # 将项目根目录添加到 sys.path
-# project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# sys.path.insert(0, project_root)
 
 from threads.img_save_thread import ImageSaveTask
 # from signals.global_signals import signals
@@ -98,11 +95,7 @@ class ImgProcessThread(QThread):
             # result_label_map = np.memmap('temp_seg.dat', dtype=np.uint8, mode='w+', shape=(h, w))
             # Sliding window inference
             for y in range(0, h - window_h + 1, stride_h):
-                # if not self._is_running:  # 检查是否需要停止线程
-                #     break
                 for x in range(0, w - window_w + 1, stride_w):
-                    # if not self._is_running:  # 检查是否需要停止线程
-                    #     break
                     window = concat_matrix[y:y + window_h, x:x + window_w]
                     window = cv2.cvtColor(window, cv2.COLOR_RGB2BGR)
                     window_result = self.model.predict(window)
