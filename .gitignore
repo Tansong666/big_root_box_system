@@ -11,7 +11,7 @@ threads/batch_process_utils
 models/inpaint/*
 models/tts/*
 paddle_seg.trt
-sub_widgets\widgets_v1
+sub_widgets/widgets_v1
 threads\threads_v1
 ui/ui_v1
 ui/*.ui
